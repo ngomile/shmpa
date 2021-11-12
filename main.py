@@ -1,4 +1,4 @@
-from typing import List, NoReturn
+from typing import Any, Dict, List, NoReturn
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -29,6 +29,13 @@ def diff_loans(df: pd.DataFrame) -> pd.DataFrame:
     """
     Returns a dataframe containing the farmers whose loan balances between the
     last and recently calculated quarters, has a non zero balance
+    """
+
+
+def find(query: Dict[str, Any]) -> pd.DataFrame:
+    """
+    Given the query, filter all the rows in the dataframe and match the ones that
+    fulfill the query criteria
     """
 
 
