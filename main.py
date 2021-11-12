@@ -15,10 +15,7 @@ def soupify_path(path: str) -> BeautifulSoup:
     return the result
     """
     with open(path, 'r') as f:
-        return BeautifulSoup(
-            f.read(),
-            features='html.parser'
-        )
+        return BeautifulSoup(f.read(), 'html.parser')
 
 
 def extract_web_tags(soup: BeautifulSoup) -> List[str]:
@@ -26,7 +23,7 @@ def extract_web_tags(soup: BeautifulSoup) -> List[str]:
     Extract the tags from the soupified html document and return a list of
     the tags that are in the table matching the selector tr>td:nth-child(2)
     """
-    return [tag for tag in soup.select('tr td:nth-child(2)')]
+    return [tag.get_text().strip() for tag in soup.select('tr td:nth-child(2)')]
 
 
 def extract_sheet_tags(df: pd.DataFrame) -> List[str]:
