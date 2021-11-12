@@ -4,17 +4,6 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 
-def try_parse_int(s: str, base=10, val=0) -> int:
-    """
-    Given argument string, attempt to parse the string to its integer value
-    if exception is thrown. Catch it and return default val
-    """
-    try:
-        return int(s, base)
-    except ValueError:
-        return val
-
-
 def soupify_path(path: str) -> BeautifulSoup:
     """
     Open the path to the file and read it into the Beautiful constructor and
