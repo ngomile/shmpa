@@ -31,7 +31,7 @@ def extract_sheet_tags(df: pd.DataFrame) -> List[str]:
     Extract the tags from the tags column in the dataframe and return a list
     of the tags
     """
-    return df['tags']
+    return [tag for tag in df['tags']] if 'tags' in df.columns else []
 
 
 def diff_loans(df: pd.DataFrame) -> pd.DataFrame:
