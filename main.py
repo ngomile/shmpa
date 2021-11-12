@@ -4,17 +4,27 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 
+EXCEL_SHEET: str = ''
+MPA_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpa_list.html'
+MPT_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpt_list.html'
+
+
 def soupify_path(path: str) -> BeautifulSoup:
     """
     Open the path to the file and read it into the Beautiful constructor and
     return the result
     """
+    with open(path, 'r') as f:
+        return BeautifulSoup(
+            f.read(),
+            features='html.parser'
+        )
 
 
 def extract_web_tags(soup: BeautifulSoup) -> List[str]:
     """
     Extract the tags from the soupified html document and return a list of
-    the tags that are in the table matching the selector tr > td:nth-child(2)
+    the tags that are in the table matching the selector tr>td:nth-child(2)
     """
 
 
