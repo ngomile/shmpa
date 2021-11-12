@@ -26,6 +26,7 @@ def extract_web_tags(soup: BeautifulSoup) -> List[str]:
     Extract the tags from the soupified html document and return a list of
     the tags that are in the table matching the selector tr>td:nth-child(2)
     """
+    return [tag for tag in soup.select('tr td:nth-child(2)')]
 
 
 def extract_sheet_tags(df: pd.DataFrame) -> List[str]:
