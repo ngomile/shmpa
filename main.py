@@ -55,6 +55,13 @@ def db_find_missing(sheet_df: pd.DataFrame, db_tags: List[str] = []) -> pd.DataF
     '''
 
 
+def sheet_find_removed(sheet_tags: List[str], db_tags: List[str] = []) -> List[str]:
+    '''
+    Return a list of the tags that are in the database but are no longer being
+    found in the sheets
+    '''
+
+
 def run() -> NoReturn:
     pass
 
