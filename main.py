@@ -48,6 +48,13 @@ def find(query: Dict[str, Any]) -> pd.DataFrame:
     """
 
 
+def db_find_missing(sheet_df: pd.DataFrame, db_tags: List[str] = []) -> pd.DataFrame:
+    '''
+    Returns a data frame containing rows of values where the tag column in the
+    dataframe has tags that have not been put into the database yet
+    '''
+
+
 def run() -> NoReturn:
     pass
 
