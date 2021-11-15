@@ -71,21 +71,21 @@ def db_find_missing(sheet_df: pd.DataFrame, db_tags: List[str] = []) -> pd.DataF
     return sheet_df[[tag not in db_tags for tag in sheet_df['tags']]]
 
 
-def db_find_removed(sheet_tags: List[str], db_tags: List[str] = []) -> List[str]:
+def db_find_removed(sheet_tags: List[str], db_tags: List[str] = []) -> pd.DataFrame:
     '''
-    Return a list of the tags that are in the database but are no longer being
-    found in the sheets
+    Return a dataframe containing a column of the tags that are in the database but are no
+    longer being found in the sheets
 
     :param sheet_tags
         The list of all the known tags from the sheets that are existing
     :param db_tags
         The list of the last known added tags in the database
     '''
-    removed = []
+    removed = {'tags': []}
     for tag in db_tags:
         if tag not in sheet_tags:
-            removed.append(tag)
-    return removed
+            removed['tags'].append(tag)
+    return pd.DataFrame(removed)
 
 
 def sheet_to_df(path: str, **kargs) -> pd.DataFrame:
