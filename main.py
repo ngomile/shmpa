@@ -97,7 +97,7 @@ def sheet_to_df(path: str, **kargs) -> pd.DataFrame:
     :param kargs
         Extra arguments to pass to the call to pd.read_excel
     '''
-    pass
+    return pd.read_excel(path, **kargs)
 
 
 def run() -> NoReturn:
