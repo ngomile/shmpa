@@ -80,6 +80,11 @@ def db_find_removed(sheet_tags: List[str], db_tags: List[str] = []) -> List[str]
     :param db_tags
         The list of the last known added tags in the database
     '''
+    removed = []
+    for tag in db_tags:
+        if tag not in sheet_tags:
+            removed.append(tag)
+    return removed
 
 
 def sheet_to_df(path: str, **kargs) -> pd.DataFrame:
