@@ -54,6 +54,7 @@ def db_find_missing(sheet_df: pd.DataFrame, db_tags: List[str] = []) -> pd.DataF
     Returns a data frame containing rows of values where the tag column in the
     dataframe has tags that have not been put into the database yet
     '''
+    return sheet_df[[tag in db_tags for tag in sheet_df['tags']]]
 
 
 def sheet_find_removed(sheet_tags: List[str], db_tags: List[str] = []) -> List[str]:
