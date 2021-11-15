@@ -1,4 +1,5 @@
 from typing import Any, Dict, List, NoReturn
+from numpy import dtype
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -102,12 +103,9 @@ def sheet_to_df(path: str, **kargs) -> pd.DataFrame:
 
 def run() -> NoReturn:
     soup = soupify_path(MPA_HTML)
-    df = sheet_to_df(EXCEL_SHEET)
-    sheet_tags = extract_sheet_tags(soup)
-    db_tags = extract_db_tags(df)
-
-    print(sheet_tags)
-    print(db_tags)
+    df = sheet_to_df(EXCEL_SHEET, dtype={'tags': str})
+    sheet_tags = extract_sheet_tags(df)
+    db_tags = extract_db_tags(soup)
 
 
 if __name__ == '__main__':
