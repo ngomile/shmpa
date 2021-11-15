@@ -22,7 +22,7 @@ def soupify_path(path: str) -> BeautifulSoup:
         return BeautifulSoup(f.read(), 'html.parser')
 
 
-def extract_web_tags(soup: BeautifulSoup) -> List[str]:
+def extract_db_tags(soup: BeautifulSoup) -> List[str]:
     """
     Extract the tags from the soupified html document and return a list of
     the tags that are in the table matching the selector tr>td:nth-child(2)
@@ -101,7 +101,10 @@ def sheet_to_df(path: str, **kargs) -> pd.DataFrame:
 
 
 def run() -> NoReturn:
-    pass
+    soup = soupify_path(MPA_HTML)
+    df = sheet_to_df(EXCEL_SHEET)
+    sheet_tags = extract_sheet_tags(soup)
+    db_tags = extract_db_tags(df)
 
 
 if __name__ == '__main__':
