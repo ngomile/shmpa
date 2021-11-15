@@ -1,8 +1,8 @@
 #todo
 ####INCOMPLETE####
-- Check which database tags are not appearing in the merged document
 - Discover which animals are likely no longer around
 ####COMPLETE####
+- Check which database tags are not appearing in the merged document (done)
 - Check which tags from the merged sheet are not appearing in the database tags (done)
 - Extract tags from the web (done)
 - Read all dam and heifer tags from merged sheet (done)
