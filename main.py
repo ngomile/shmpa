@@ -4,7 +4,8 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 
-EXCEL_SHEET: str = ''
+EXCEL_SHEET: str = 'C:/Users/SHMPA Data/Documents/TM Tags.xlsx'
+OUTPUT_DIR: str = 'C:/Users/SHMPA Data/Documents/SHMPA Auto'
 MPA_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpa_list.html'
 MPT_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpt_list.html'
 
