@@ -68,7 +68,7 @@ def db_find_missing(sheet_df: pd.DataFrame, db_tags: List[str] = []) -> pd.DataF
     :param db_tags
         The list of tags that are currently contained in the database
     '''
-    return sheet_df[[tag in db_tags for tag in sheet_df['tags']]]
+    return sheet_df[[tag not in db_tags for tag in sheet_df['tags']]]
 
 
 def db_find_removed(sheet_tags: List[str], db_tags: List[str] = []) -> List[str]:
@@ -103,9 +103,19 @@ def sheet_to_df(path: str, **kargs) -> pd.DataFrame:
 
 def run() -> NoReturn:
     soup = soupify_path(MPA_HTML)
-    df = sheet_to_df(EXCEL_SHEET, dtype={'tags': str})
+    df = sheet_to_df(
+        EXCEL_SHEET,
+        dtype={
+            'tags': str,
+            'events': str
+        },
+        keep_default_na=False
+    )
     sheet_tags = extract_sheet_tags(df)
     db_tags = extract_db_tags(soup)
+
+    missing_tags: pd.DataFrame = db_find_missing(df, db_tags)
+    removed_tags = db_find_removed(sheet_tags, db_tags)
 
 
 if __name__ == '__main__':
