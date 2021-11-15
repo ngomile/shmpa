@@ -101,7 +101,8 @@ def sheet_to_df(path: str, **kargs) -> pd.DataFrame:
 
 
 def run() -> NoReturn:
-    pass
+    soup = soupify_path(MPA_HTML)
+    print(soup)
 
 
 if __name__ == '__main__':
