@@ -106,6 +106,9 @@ def run() -> NoReturn:
     sheet_tags = extract_sheet_tags(soup)
     db_tags = extract_db_tags(df)
 
+    print(sheet_tags)
+    print(db_tags)
+
 
 if __name__ == '__main__':
     run()
