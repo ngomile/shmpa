@@ -11,7 +11,7 @@ OUTPUT_DIR: str = 'C:/Users/SHMPA Data/Documents/SHMPA Auto'
 MPA_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpa_list.html'
 MPT_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpt_list.html'
 
-DATE_TIME: str = date.today().strftime('%d-%m-%Y %H:%M')
+DATE_TIME: str = date.today().strftime('%d_%m_%Y')
 MISSING_PATH: str = os.path.join(OUTPUT_DIR, f'MISSING_TAGS_{DATE_TIME}.xlsx')
 DIFF_PATH: str = os.path.join(OUTPUT_DIR, f'DIFF_TAGS_{DATE_TIME}.xlsx')
 
