@@ -1,5 +1,6 @@
-from typing import Any, Dict, List, NoReturn
-from numpy import dtype
+import os
+from datetime import date
+from typing import List, NoReturn
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -9,6 +10,10 @@ EXCEL_SHEET: str = 'C:/Users/SHMPA Data/Documents/TM Tags.xlsx'
 OUTPUT_DIR: str = 'C:/Users/SHMPA Data/Documents/SHMPA Auto'
 MPA_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpa_list.html'
 MPT_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpt_list.html'
+
+DATE_TIME: str = date.today().strftime('%d-%m-%Y %H:%M')
+MISSING_PATH: str = os.path.join(OUTPUT_DIR, f'MISSING_TAGS_{DATE_TIME}.xlsx')
+DIFF_PATH: str = os.path.join(OUTPUT_DIR, f'DIFF_TAGS_{DATE_TIME}.xlsx')
 
 
 def soupify_path(path: str) -> BeautifulSoup:
@@ -71,7 +76,7 @@ def db_find_missing(sheet_df: pd.DataFrame, db_tags: List[str] = []) -> pd.DataF
     return sheet_df[[tag not in db_tags for tag in sheet_df['tags']]]
 
 
-def db_find_removed(sheet_tags: List[str], db_tags: List[str] = []) -> pd.DataFrame:
+def db_find_diff(sheet_tags: List[str], db_tags: List[str] = []) -> pd.DataFrame:
     '''
     Return a dataframe containing a column of the tags that are in the database but are no
     longer being found in the sheets
@@ -111,11 +116,20 @@ def run() -> NoReturn:
         },
         keep_default_na=False
     )
+
     sheet_tags = extract_sheet_tags(df)
     db_tags = extract_db_tags(soup)
+    missing_tags = db_find_missing(df, db_tags)
+    diff_tags = db_find_diff(sheet_tags, db_tags)
 
-    missing_tags: pd.DataFrame = db_find_missing(df, db_tags)
-    removed_tags = db_find_removed(sheet_tags, db_tags)
+    if os.path.isfile(MISSING_PATH):
+        os.remove(MISSING_PATH)
+
+    if os.path.isfile(DIFF_PATH):
+        os.remove(DIFF_PATH)
+
+    missing_tags.to_excel(MISSING_PATH, index=False)
+    diff_tags.to_excel(DIFF_PATH, index=False)
 
 
 if __name__ == '__main__':
