@@ -1,7 +1,8 @@
 #todo
 ####INCOMPLETE####
-- Discover which animals are likely no longer around
 ####COMPLETE####
+- Make functionality to find animals in the database that are not listed in the
+  sheets (done)
 - Check which database tags are not appearing in the merged document (done)
 - Check which tags from the merged sheet are not appearing in the database tags (done)
 - Extract tags from the web (done)
