@@ -132,14 +132,17 @@ def run():
     sheet_tags = sheet_only_tags(extracted_sheet, extracted_db)
     db_tags = db_only_tags(extracted_sheet, extracted_db)
 
+    df_sheet = df[[tag in sheet_tags for tag in df['tags']]]
+    df_db = pd.DataFrame({'tags': db_tags})
+
     if os.path.isfile(SHEET_ONLY_PATH):
         os.remove(SHEET_ONLY_PATH)
 
     if os.path.isfile(DB_ONLY_PATH):
         os.remove(DB_ONLY_PATH)
 
-    sheet_tags.to_excel(SHEET_ONLY_PATH, index=False)
-    db_tags.to_excel(DB_ONLY_PATH, index=False)
+    df_sheet.to_excel(SHEET_ONLY_PATH, index=False)
+    df_db.to_excel(DB_ONLY_PATH, index=False)
 
 
 if __name__ == '__main__':
