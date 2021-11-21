@@ -133,7 +133,7 @@ def run():
     db_tags = db_only_tags(extracted_sheet, extracted_db)
 
     df_sheet = df[[tag in sheet_tags for tag in df['tags']]]
-    df_db = pd.DataFrame({'tags': db_tags})
+    df_db = pd.DataFrame({'tags': sorted(db_tags)})
 
     if os.path.isfile(SHEET_ONLY_PATH):
         os.remove(SHEET_ONLY_PATH)
