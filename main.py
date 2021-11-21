@@ -126,10 +126,11 @@ def run():
         keep_default_na=False
     )
 
-    sheet_tags = extract_sheet_tags(df)
-    db_tags = extract_db_tags(soup)
-    sheet_tags = sheet_only_tags(sheet_tags, db_tags)
-    db_tags = db_only_tags(sheet_tags, db_tags)
+    extracted_sheet = extract_sheet_tags(df)
+    extracted_db = extract_db_tags(soup)
+
+    sheet_tags = sheet_only_tags(extracted_sheet, extracted_db)
+    db_tags = db_only_tags(extracted_sheet, extracted_db)
 
     if os.path.isfile(SHEET_ONLY_PATH):
         os.remove(SHEET_ONLY_PATH)
