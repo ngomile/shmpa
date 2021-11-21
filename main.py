@@ -1,6 +1,6 @@
 import os
 from datetime import date
-from typing import List, NoReturn
+from typing import List
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -66,10 +66,10 @@ def diff_loans(df: pd.DataFrame) -> pd.DataFrame:
     """
 
 
-def sheet_only_tags(sheet_df: pd.DataFrame, db_tags: List[str] = []) -> pd.DataFrame:
+def sheet_only_tags(sheet_tags: List[str], db_tags: List[str] = []) -> List[str]:
     '''
-    Returns a data frame containing rows of values where the tag column in the
-    dataframe has tags that have not been put into the database yet
+    Returns a list of tags that are only appearing in the excel sheets and have
+    not been entered in the database yet
 
     :param sheet_df
         The dataframe that may be containing tags that have not yet been added to the
@@ -77,24 +77,29 @@ def sheet_only_tags(sheet_df: pd.DataFrame, db_tags: List[str] = []) -> pd.DataF
     :param db_tags
         The list of tags that are currently contained in the database
     '''
-    return sheet_df[[tag not in db_tags for tag in sheet_df['tags']]]
+    tags: List[str] = []
+    for tag in sheet_tags:
+        if tag not in db_tags:
+            tags.append(tag)
+
+    return tags
 
 
-def db_only_tags(sheet_tags: List[str], db_tags: List[str] = []) -> pd.DataFrame:
+def db_only_tags(sheet_tags: List[str], db_tags: List[str] = []) -> List[str]:
     '''
-    Return a dataframe containing a column of the tags that are in the database but are no
-    longer being found in the sheets
+    Returns a list of tags that are only appearing in the database and are not being
+    found in the sheets
 
     :param sheet_tags
         The list of all the known tags from the sheets that are existing
     :param db_tags
         The list of the last known added tags in the database
     '''
-    removed = {'tags': []}
+    tags: List[str] = []
     for tag in db_tags:
         if tag not in sheet_tags:
-            removed['tags'].append(tag)
-    return pd.DataFrame(removed)
+            tags.append(tag)
+    return tags
 
 
 def sheet_to_df(path: str, **kargs) -> pd.DataFrame:
@@ -110,7 +115,7 @@ def sheet_to_df(path: str, **kargs) -> pd.DataFrame:
     return pd.read_excel(path, **kargs)
 
 
-def run() -> NoReturn:
+def run():
     soup = soupify_path(MPA_HTML)
     df = sheet_to_df(
         EXCEL_SHEET,
@@ -123,7 +128,7 @@ def run() -> NoReturn:
 
     sheet_tags = extract_sheet_tags(df)
     db_tags = extract_db_tags(soup)
-    sheet_tags = sheet_only_tags(df, db_tags)
+    sheet_tags = sheet_only_tags(sheet_tags, db_tags)
     db_tags = db_only_tags(sheet_tags, db_tags)
 
     if os.path.isfile(SHEET_ONLY_PATH):
