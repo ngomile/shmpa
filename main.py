@@ -12,8 +12,12 @@ MPA_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpa_list.html'
 MPT_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpt_list.html'
 
 DATE_TIME: str = date.today().strftime('%d_%m_%Y')
-MISSING_PATH: str = os.path.join(OUTPUT_DIR, f'MISSING_TAGS_{DATE_TIME}.xlsx')
-DIFF_PATH: str = os.path.join(OUTPUT_DIR, f'DIFF_TAGS_{DATE_TIME}.xlsx')
+
+SHEET_ONLY_PATH: str = os.path.join(
+    OUTPUT_DIR,
+    f'SHEET_TAGS_{DATE_TIME}.xlsx'
+)
+DB_ONLY_PATH: str = os.path.join(OUTPUT_DIR, f'DB_TAGS_{DATE_TIME}.xlsx')
 
 
 def soupify_path(path: str) -> BeautifulSoup:
@@ -62,7 +66,7 @@ def diff_loans(df: pd.DataFrame) -> pd.DataFrame:
     """
 
 
-def db_find_missing(sheet_df: pd.DataFrame, db_tags: List[str] = []) -> pd.DataFrame:
+def sheet_only_tags(sheet_df: pd.DataFrame, db_tags: List[str] = []) -> pd.DataFrame:
     '''
     Returns a data frame containing rows of values where the tag column in the
     dataframe has tags that have not been put into the database yet
@@ -76,7 +80,7 @@ def db_find_missing(sheet_df: pd.DataFrame, db_tags: List[str] = []) -> pd.DataF
     return sheet_df[[tag not in db_tags for tag in sheet_df['tags']]]
 
 
-def db_find_diff(sheet_tags: List[str], db_tags: List[str] = []) -> pd.DataFrame:
+def db_only_tags(sheet_tags: List[str], db_tags: List[str] = []) -> pd.DataFrame:
     '''
     Return a dataframe containing a column of the tags that are in the database but are no
     longer being found in the sheets
@@ -119,17 +123,17 @@ def run() -> NoReturn:
 
     sheet_tags = extract_sheet_tags(df)
     db_tags = extract_db_tags(soup)
-    missing_tags = db_find_missing(df, db_tags)
-    diff_tags = db_find_diff(sheet_tags, db_tags)
+    sheet_tags = sheet_only_tags(df, db_tags)
+    db_tags = db_only_tags(sheet_tags, db_tags)
 
-    if os.path.isfile(MISSING_PATH):
-        os.remove(MISSING_PATH)
+    if os.path.isfile(SHEET_ONLY_PATH):
+        os.remove(SHEET_ONLY_PATH)
 
-    if os.path.isfile(DIFF_PATH):
-        os.remove(DIFF_PATH)
+    if os.path.isfile(DB_ONLY_PATH):
+        os.remove(DB_ONLY_PATH)
 
-    missing_tags.to_excel(MISSING_PATH, index=False)
-    diff_tags.to_excel(DIFF_PATH, index=False)
+    sheet_tags.to_excel(SHEET_ONLY_PATH, index=False)
+    db_tags.to_excel(DB_ONLY_PATH, index=False)
 
 
 if __name__ == '__main__':
