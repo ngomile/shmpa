@@ -135,6 +135,11 @@ def run():
     df_sheet = df[[tag in sheet_tags for tag in df['tags']]]
     df_db = pd.DataFrame({'tags': sorted(db_tags)})
 
+    unique_tags = tuple((tag[1] for tag in df['tags'].iteritems()))
+    tag_count = len(unique_tags)
+
+    print(f'Found {tag_count} unique tags')
+
     if os.path.isfile(SHEET_ONLY_PATH):
         os.remove(SHEET_ONLY_PATH)
 
