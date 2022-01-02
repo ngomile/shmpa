@@ -18,7 +18,7 @@
 - Add functionality to extract tags from the web (done)
 - Add functionality to read all dam and heifer tags from merged sheet (done)
 ****NOTES****
-- Columns for sheet mpT are
+- Columns for sheet mpT (dams) are
   tag: B,
   comments: C,
   farm_code: D,
@@ -37,3 +37,17 @@
   date_last_calved: CW
   date_left_or_died: CS
   cause: CT
+- Columns for sheet mpTh (heifers) are
+  tag: B
+  farmer_name: D
+  breed: E
+  dam: I
+  breeding: J
+  mbg: K
+  birth_number: L
+  transfer_farmer_name: N
+  transfer_mbg: O
+  transfer_date: P
+  born: Q
+  latest_weight: R
+  date_weighed: T
