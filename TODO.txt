@@ -1,9 +1,39 @@
 #todo
 ####INCOMPLETE####
+- Add functionality to go through rows in sheet
+- Add functionality to parse rows based on sheet_type
+- Add option to select start and end of rows to be processed in sheets
+- Add classes to store dam and heifer records
+- Add functionality to parse animal list from database, returning a dict linking
+  tags to their respective owners in the database
+- Add functionality to check if the list of records in the calving years is realistic
+- Add config dictionary to make it easier to affect behavior
 ####COMPLETE####
-- Make functionality to find animals in the database that are not listed in the
+- Add functionality to find animals in the database that are not listed in the
   sheets (done)
-- Check which database tags are not appearing in the merged document (done)
-- Check which tags from the merged sheet are not appearing in the database tags (done)
-- Extract tags from the web (done)
-- Read all dam and heifer tags from merged sheet (done)
+- Add functionality to check which database tags are not appearing in the merged
+  document (done)
+- Add functionality to check which tags from the merged sheet are not appearing in
+  the database tags (done)
+- Add functionality to extract tags from the web (done)
+- Add functionality to read all dam and heifer tags from merged sheet (done)
+****NOTES****
+- Columns for sheet mpT are
+  tag: B,
+  comments: C,
+  farm_code: D,
+  farmer_name: E,
+  established: G,
+  mbg: H,
+  area: J,
+  zone: K,
+  date_recd: L,
+  2019_calving: (tag: BM, date: BN)
+  2020_calving: (tag: BQ, date: BR)
+  2021_calving: (tag: BU, date: BV)
+  breed: CC
+  born: CE
+  source: CF
+  date_last_calved: CW
+  date_left_or_died: CS
+  cause: CT
