@@ -1,4 +1,4 @@
-config = {
+CONFIG = {
     'dam': {
         'names': [
             'tag', 'comment', 'code', 'farmer_name', 'cow_no', 'established',
