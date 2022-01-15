@@ -12,7 +12,7 @@ def get_config() -> dict[str, dict[str, Any]]:
                 'date_died', 'cause', 'destination', 'future_decision',
                 'last_calved', 'status',
             ],
-            'usecols': [
+            'cols': [
                 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 64, 65, 68, 69, 72, 73, 76,
                 80, 81, 82, 83, 86, 87, 88, 89, 90, 100,
             ],
@@ -23,7 +23,7 @@ def get_config() -> dict[str, dict[str, Any]]:
                 'repaid', 'transfer_name', 'transfer_mbg', 'transfer_date', 'born',
                 'weight', 'monthy_gain', 'last_weighed', 'status',
             ],
-            'usecols': [
+            'cols': [
                 1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
             ],
         },
