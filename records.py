@@ -50,13 +50,25 @@ class TransferRecord:
     This type stores information for a transfer of a cow from one location to
     another
     '''
-    destination: str
+    name: str
     mbg: str
     date: str
 
 
 @dataclass
-class HeiferSheet:
+class RemovalRecord:
+    '''
+    This type stores information related to the removal of a cow from the farm
+    because it either died or other reasons
+    '''
+    date_removed: str
+    cause: str
+    destination: str
+    decision: str
+
+
+@dataclass
+class HeiferRecord:
     '''
     This type stores information of a heifer
     '''
