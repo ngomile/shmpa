@@ -8,6 +8,7 @@
   tags to their respective owners in the database
 - Add functionality to check if the list of records in the calving years is realistic
 - Add config dictionary to make it easier to affect behavior
+- Add farmer record type to records
 ####COMPLETE####
 - Add functionality to find animals in the database that are not listed in the
   sheets (done)
