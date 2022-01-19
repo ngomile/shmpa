@@ -20,7 +20,7 @@ def get_config() -> dict[str, dict[str, Any]]:
                 'tag': str,
                 'code': str,
                 'cow_no': str,
-                'established': int,
+                'established': str,
                 'zone': str,
                 'repaid': bool,
             }
