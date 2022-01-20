@@ -156,12 +156,12 @@ if __name__ == '__main__':
 
     config = get_config()
     document = 'tm'
+    sheet = 'mpA'
 
     dam_names = config['dam']['names']
     dam_converters = config['dam']['converters']
 
     dam_cols = config['dam']['cols']
-    sheet = 'mpA'
 
     path = config[document]['path']
 
