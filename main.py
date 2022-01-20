@@ -167,12 +167,23 @@ if __name__ == '__main__':
     heifer_names = config['heifer']['names']
     heifer_cols = config['heifer']['cols']
     heifer_converters = config['heifer']['converters']
+    heifer_sheet = config[document]['sheets'][dam_sheet]['heifer_sheet']
 
     df_dams = pd.read_excel(
         path,
         names=dam_names,
         usecols=dam_cols,
         na_filter=False,
+        converters=dam_converters,
         sheet_name=dam_sheet,
         skiprows=2
+    )
+
+    df_heifers = pd.read_excel(
+        path,
+        names=heifer_names,
+        usecols=heifer_cols,
+        converters=heifer_converters,
+        sheet_name=heifer_sheet,
+        na_filter=False,
     )
