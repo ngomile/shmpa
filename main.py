@@ -158,16 +158,20 @@ if __name__ == '__main__':
     document = 'tm'
 
     dam_names = config['dam']['names']
-    dam_cols = config['dam']['cols']
     dam_converters = config['dam']['converters']
+
+    dam_cols = config['dam']['cols']
     dam_sheet = 'mpA'
 
     path = config[document]['path']
 
     heifer_names = config['heifer']['names']
-    heifer_cols = config['heifer']['cols']
-    heifer_converters = config['heifer']['converters']
     heifer_sheet = config[document]['sheets'][dam_sheet]['heifer_sheet']
+
+    heifer_cols = config[document]
+    sheets = config[document]['sheets']
+    heifer_cols = sheets.get(dam_sheet).get('heifer_cols') or heifer_cols
+    heifer_converters = config['heifer']['converters']
 
     df_dams = pd.read_excel(
         path,
