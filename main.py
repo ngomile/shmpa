@@ -168,7 +168,7 @@ if __name__ == '__main__':
     heifer_names = config['heifer']['names']
     heifer_sheet = config[document]['sheets'][dam_sheet]['heifer_sheet']
 
-    heifer_cols = config[document]
+    heifer_cols = config['heifer']['cols']
     sheets = config[document]['sheets']
     heifer_cols = sheets.get(dam_sheet).get('heifer_cols') or heifer_cols
     heifer_converters = config['heifer']['converters']
@@ -190,4 +190,5 @@ if __name__ == '__main__':
         converters=heifer_converters,
         sheet_name=heifer_sheet,
         na_filter=False,
+        skiprows=3
     )
