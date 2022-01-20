@@ -161,16 +161,16 @@ if __name__ == '__main__':
     dam_converters = config['dam']['converters']
 
     dam_cols = config['dam']['cols']
-    dam_sheet = 'mpA'
+    sheet = 'mpA'
 
     path = config[document]['path']
 
     heifer_names = config['heifer']['names']
-    heifer_sheet = config[document]['sheets'][dam_sheet]['heifer_sheet']
+    heifer_sheet = config[document]['sheets'][sheet]['heifer_sheet']
 
     heifer_cols = config['heifer']['cols']
     sheets = config[document]['sheets']
-    heifer_cols = sheets.get(dam_sheet).get('heifer_cols') or heifer_cols
+    heifer_cols = sheets.get(sheet).get('heifer_cols') or heifer_cols
     heifer_converters = config['heifer']['converters']
 
     df_dams = pd.read_excel(
@@ -179,7 +179,7 @@ if __name__ == '__main__':
         usecols=dam_cols,
         na_filter=False,
         converters=dam_converters,
-        sheet_name=dam_sheet,
+        sheet_name=sheet,
         skiprows=2
     )
 
@@ -192,3 +192,7 @@ if __name__ == '__main__':
         na_filter=False,
         skiprows=3
     )
+
+    class SheetHandler:
+        def __init__(self, document: str, sheet: str) -> None:
+            pass
