@@ -43,6 +43,10 @@ class DamRecord:
     last_calved: str
     status: str
 
+    @classmethod
+    def from_row(cls):
+        return DamRecord()
+
 
 @dataclass
 class TransferRecord:

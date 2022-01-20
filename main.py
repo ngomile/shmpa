@@ -151,4 +151,28 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    import pandas as pd
+    from config import get_config
+
+    config = get_config()
+    document = 'tm'
+
+    dam_names = config['dam']['names']
+    dam_cols = config['dam']['cols']
+    dam_converters = config['dam']['converters']
+    dam_sheet = 'mpA'
+
+    path = config[document]['path']
+
+    heifer_names = config['heifer']['names']
+    heifer_cols = config['heifer']['cols']
+    heifer_converters = config['heifer']['converters']
+
+    df_dams = pd.read_excel(
+        path,
+        names=dam_names,
+        usecols=dam_cols,
+        na_filter=False,
+        sheet_name=dam_sheet,
+        skiprows=2
+    )
