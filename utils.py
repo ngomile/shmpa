@@ -4,7 +4,7 @@ from typing import List
 import pandas as pd
 
 
-def take_cols(df: pd.DataFrame, cols: List[str] = ['tag', 'farmer_name']) -> pd.DataFrame:
+def take_cols(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
     '''
     Utility function to return a dataframe of only the selected columns
     :param df
