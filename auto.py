@@ -2,7 +2,7 @@ import pandas as pd
 
 from config import get_config
 from records import RowRecord
-from utils import take_cols
+from utils import take_cols, filter_alive
 
 
 class SheetHandler:
@@ -44,8 +44,8 @@ class SheetHandler:
         )
 
         if alive_only:
-            self.df_dams = filter_alive(df_dams)
-            self.df_heifers = filter_alive(df_heifers)
+            self.df_dams = filter_alive(self.df_dams)
+            self.df_heifers = filter_alive(self.df_heifers)
 
     def yield_as_record(self):
         '''
@@ -53,7 +53,7 @@ class SheetHandler:
         as a RowRecord
         '''
         for _, row in take_cols(self.df_dams).iterrows():
-            yield row
+            yield RowRecord.from_row(row)
 
         for _, row in take_cols(self.df_heifers).iterrows():
-            yield row
+            yield RowRecord.from_row(row)

@@ -1,5 +1,7 @@
-import pandas as pd
+import re
 from typing import List
+
+import pandas as pd
 
 
 def take_cols(df: pd.DataFrame, cols: List[str] = ['tag', 'farmer_name']) -> pd.DataFrame:
