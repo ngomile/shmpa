@@ -1,5 +1,6 @@
 import os
 from datetime import date
+from re import T
 from typing import List
 
 import pandas as pd
@@ -166,10 +167,10 @@ if __name__ == '__main__':
         '^\d+$',
         regex=True,
         flags=re.I
-    )]
+    )].reset_index(drop=True)
 
     df_heifers = df_heifers[df_heifers['tag'].str.contains(
         '^\d+$',
         regex=True,
         flags=re.I
-    )]
+    )].reset_index(drop=True)
