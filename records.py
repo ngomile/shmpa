@@ -90,3 +90,10 @@ class HeiferRecord:
     monthly_gain: float
     last_weighed: str
     status: str
+
+
+@dataclass
+class RowRecord:
+    tag: str
+    farmer_name: str
+    mbg: str
