@@ -150,21 +150,6 @@ def run():
     df_db.to_excel(DB_ONLY_PATH, index=False)
 
 
-def filter_alive(df: pd.DataFrame) -> pd.DataFrame:
-    '''
-    Finds cows that match the regular expression of digits only, assumes
-    that number only tags are cows that are alive
-
-    :param df
-        The dataframe to filter rows for cows that are alive only
-    '''
-    return df[df['tag'].str.contains(
-        '^\d+$',
-        regex=True,
-        flags=re.I
-    )].reset_index(drop=True)
-
-
 if __name__ == '__main__':
     import re
     import time
@@ -179,10 +164,6 @@ if __name__ == '__main__':
     sheet_handler = SheetHandler(document, sheet)
     df_dams = sheet_handler.df_dams
     df_heifers = sheet_handler.df_heifers
-
-    if alive_only:
-        df_dams = filter_alive(df_dams)
-        df_heifers = filter_alive(df_heifers)
 
     end = time.perf_counter()
     print(f'That took {end - start}')
