@@ -58,3 +58,7 @@ class SheetHandler:
 
         for _, row in take_cols(self.df_heifers, cols).iterrows():
             yield RowRecord.from_row(row)
+
+    def find_transferred(self, db_entries: dict[str, str]):
+        records = self.yield_as_record()
+        cow_dict = {record.tag: record.farmer_name for record in records}

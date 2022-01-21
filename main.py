@@ -163,8 +163,5 @@ if __name__ == '__main__':
     df_dams = sheet_handler.df_dams
     df_heifers = sheet_handler.df_heifers
 
-    records = sheet_handler.yield_as_record()
-    cow_dict = {record.tag: record.farmer_name for record in records}
-
     end = time.perf_counter()
     print(f'That took {end - start}')
