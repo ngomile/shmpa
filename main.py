@@ -151,9 +151,25 @@ def run():
 
 
 if __name__ == '__main__':
+    import re
+
     from auto import SheetHandler
 
     document = 'tm'
     sheet = 'mpA'
 
     sheet_handler = SheetHandler(document, sheet)
+    df_dams = sheet_handler.df_dams
+    df_heifers = sheet_handler.df_heifers
+
+    df_dams = df_dams[df_dams['tag'].str.contains(
+        '^\d+$',
+        regex=True,
+        flags=re.I
+    )]
+
+    df_heifers = df_heifers[df_heifers['tag'].str.contains(
+        '^\d+$',
+        regex=True,
+        flags=re.I
+    )]
