@@ -175,7 +175,7 @@ if __name__ == '__main__':
             heifer_cols = config['heifer']['cols']
             heifer_cols = sheets.get(sheet).get('heifer_cols') or heifer_cols
 
-            self.df_dams = pd.read_excel(
+            self.df_dams: pd.DataFrame = pd.read_excel(
                 path,
                 names=dam_names,
                 usecols=dam_cols,
@@ -185,7 +185,7 @@ if __name__ == '__main__':
                 skiprows=2
             )
 
-            self.df_heifers = pd.read_excel(
+            self.df_heifers: pd.DataFrame = pd.read_excel(
                 path,
                 names=heifer_names,
                 usecols=heifer_cols,
