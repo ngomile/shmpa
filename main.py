@@ -6,7 +6,6 @@ from typing import List
 import pandas as pd
 from bs4 import BeautifulSoup
 
-
 EXCEL_SHEET: str = 'C:/Users/SHMPA Data/Documents/TM Tags.xlsx'
 OUTPUT_DIR: str = 'C:/Users/SHMPA Data/Documents/SHMPA Auto'
 MPA_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpa_list.html'
@@ -164,17 +163,6 @@ def filter_alive(df: pd.DataFrame) -> pd.DataFrame:
         regex=True,
         flags=re.I
     )].reset_index(drop=True)
-
-
-def take_cols(df: pd.DataFrame, cols: List[str] = ['tag', 'farmer_name']) -> pd.DataFrame:
-    '''
-    Utility function to return a dataframe of only the selected columns
-    :param df
-        The dataframe containing rows of interest
-    :param cols
-        The list of column names to only show for the returned dataframe
-    '''
-    return df[cols]
 
 
 if __name__ == '__main__':
