@@ -158,19 +158,21 @@ if __name__ == '__main__':
 
     document = 'tm'
     sheet = 'mpA'
+    alive_only = True
 
     sheet_handler = SheetHandler(document, sheet)
     df_dams = sheet_handler.df_dams
     df_heifers = sheet_handler.df_heifers
 
-    df_dams = df_dams[df_dams['tag'].str.contains(
-        '^\d+$',
-        regex=True,
-        flags=re.I
-    )].reset_index(drop=True)
+    if alive_only:
+        df_dams = df_dams[df_dams['tag'].str.contains(
+            '^\d+$',
+            regex=True,
+            flags=re.I
+        )].reset_index(drop=True)
 
-    df_heifers = df_heifers[df_heifers['tag'].str.contains(
-        '^\d+$',
-        regex=True,
-        flags=re.I
-    )].reset_index(drop=True)
+        df_heifers = df_heifers[df_heifers['tag'].str.contains(
+            '^\d+$',
+            regex=True,
+            flags=re.I
+        )].reset_index(drop=True)
