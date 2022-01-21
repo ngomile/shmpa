@@ -172,11 +172,13 @@ def take_cols(df: pd.DataFrame, cols: List[str] = ['tag', 'farmer_name']):
 
 if __name__ == '__main__':
     import re
+    import time
 
     from auto import SheetHandler
 
+    start = time.perf_counter()
     document = 'tm'
-    sheet = 'mpA'
+    sheet = 'mpT'
     alive_only = True
 
     sheet_handler = SheetHandler(document, sheet)
@@ -186,3 +188,12 @@ if __name__ == '__main__':
     if alive_only:
         df_dams = filter_alive(df_dams)
         df_heifers = filter_alive(df_heifers)
+
+    for index, row in take_cols(df_dams).iterrows():
+        print(row['tag'])
+
+    for index, row in take_cols(df_heifers).iterrows():
+        print(row['tag'])
+
+    end = time.perf_counter()
+    print(f'That took {end - start}')
