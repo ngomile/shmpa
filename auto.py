@@ -6,7 +6,7 @@ from utils import take_cols
 
 
 class SheetHandler:
-    def __init__(self, document: str, sheet: str) -> None:
+    def __init__(self, document: str, sheet: str, alive_only: bool = True) -> None:
         config = get_config()
         path = config[document]['path']
         sheets = config[document]['sheets']
@@ -42,6 +42,10 @@ class SheetHandler:
             na_filter=False,
             skiprows=3
         )
+
+        if alive_only:
+            self.df_dams = filter_alive(df_dams)
+            self.df_heifers = filter_alive(df_heifers)
 
     def yield_as_record(self):
         '''
