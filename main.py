@@ -151,6 +151,14 @@ def run():
     df_db.to_excel(DB_ONLY_PATH, index=False)
 
 
+def filter_alive(df: pd.DataFrame) -> pd.DataFrame:
+    return df[df['tag'].str.contains(
+        '^\d+$',
+        regex=True,
+        flags=re.I
+    )].reset_index(drop=True)
+
+
 if __name__ == '__main__':
     import re
 
@@ -165,14 +173,5 @@ if __name__ == '__main__':
     df_heifers = sheet_handler.df_heifers
 
     if alive_only:
-        df_dams = df_dams[df_dams['tag'].str.contains(
-            '^\d+$',
-            regex=True,
-            flags=re.I
-        )].reset_index(drop=True)
-
-        df_heifers = df_heifers[df_heifers['tag'].str.contains(
-            '^\d+$',
-            regex=True,
-            flags=re.I
-        )].reset_index(drop=True)
+        df_dams = filter_alive(df_dams)
+        df_heifers = filter_alive(df_heifers)
