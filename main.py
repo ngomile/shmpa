@@ -151,7 +151,6 @@ def run():
 
 
 if __name__ == '__main__':
-    import re
     import time
 
     from auto import SheetHandler
