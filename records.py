@@ -1,5 +1,7 @@
 from dataclasses import dataclass
-from typing import Dict, Any
+from typing import Dict
+
+import pandas as pd
 
 
 @dataclass
@@ -103,7 +105,13 @@ class RowRecord:
     mbg: str
 
     @classmethod
-    def from_row(cls, row: dict[str, Any]):
+    def from_row(cls, row: pd.Series):
+        '''
+        Constructs this class using the provided row series
+
+        :param row
+            The pandas series that contain entries matching this class constructor
+        '''
         return cls(
             tag=row['tag'],
             farmer_name=row['farmer_name'],
