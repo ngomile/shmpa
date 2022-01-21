@@ -158,7 +158,6 @@ if __name__ == '__main__':
     start = time.perf_counter()
     document = 'tm'
     sheet = 'mpT'
-    alive_only = True
 
     sheet_handler = SheetHandler(document, sheet)
     df_dams = sheet_handler.df_dams
