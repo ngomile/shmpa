@@ -152,6 +152,13 @@ def run():
 
 
 def filter_alive(df: pd.DataFrame) -> pd.DataFrame:
+    '''
+    Finds cows that match the regular expression of digits only, assumes
+    that number only tags are cows that are alive
+
+    :param df
+        The dataframe to filter rows for cows that are alive only
+    '''
     return df[df['tag'].str.contains(
         '^\d+$',
         regex=True,
@@ -160,7 +167,7 @@ def filter_alive(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def take_cols(df: pd.DataFrame, cols: List[str]):
-    pass
+    return df[cols]
 
 
 if __name__ == '__main__':
