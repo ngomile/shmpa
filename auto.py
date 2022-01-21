@@ -52,8 +52,9 @@ class SheetHandler:
         Is a generator that yields the rows of both the dam sheet and the heifer sheet
         as a RowRecord
         '''
-        for _, row in take_cols(self.df_dams).iterrows():
+        cols = ['tag', 'farmer_name', 'mbg']
+        for _, row in take_cols(self.df_dams, cols).iterrows():
             yield RowRecord.from_row(row)
 
-        for _, row in take_cols(self.df_heifers).iterrows():
+        for _, row in take_cols(self.df_heifers, cols).iterrows():
             yield RowRecord.from_row(row)
