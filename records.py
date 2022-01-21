@@ -94,6 +94,10 @@ class HeiferRecord:
 
 @dataclass
 class RowRecord:
+    '''
+    This record stores common fields to both heifer and dam sheets and
+    avoids using fields that are not common between the two
+    '''
     tag: str
     farmer_name: str
     mbg: str
