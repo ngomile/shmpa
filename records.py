@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict
+from typing import Dict, Any
 
 
 @dataclass
@@ -101,3 +101,11 @@ class RowRecord:
     tag: str
     farmer_name: str
     mbg: str
+
+    @classmethod
+    def from_row(cls, row: dict[str, Any]):
+        return cls(
+            tag=row['tag'],
+            farmer_name=row['farmer_name'],
+            mbg=row['mbg']
+        )
