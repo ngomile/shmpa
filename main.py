@@ -166,7 +166,7 @@ def filter_alive(df: pd.DataFrame) -> pd.DataFrame:
     )].reset_index(drop=True)
 
 
-def take_cols(df: pd.DataFrame, cols: List[str]):
+def take_cols(df: pd.DataFrame, cols: List[str] = ['tag', 'farmer_name']):
     return df[cols]
 
 
