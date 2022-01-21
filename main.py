@@ -166,7 +166,14 @@ def filter_alive(df: pd.DataFrame) -> pd.DataFrame:
     )].reset_index(drop=True)
 
 
-def take_cols(df: pd.DataFrame, cols: List[str] = ['tag', 'farmer_name']):
+def take_cols(df: pd.DataFrame, cols: List[str] = ['tag', 'farmer_name']) -> pd.DataFrame:
+    '''
+    Utility function to return a dataframe of only the selected columns
+    :param df
+        The dataframe containing rows of interest
+    :param cols
+        The list of column names to only show for the returned dataframe
+    '''
     return df[cols]
 
 
@@ -188,12 +195,6 @@ if __name__ == '__main__':
     if alive_only:
         df_dams = filter_alive(df_dams)
         df_heifers = filter_alive(df_heifers)
-
-    for index, row in take_cols(df_dams).iterrows():
-        print(row['tag'])
-
-    for index, row in take_cols(df_heifers).iterrows():
-        print(row['tag'])
 
     end = time.perf_counter()
     print(f'That took {end - start}')
