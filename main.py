@@ -159,6 +159,10 @@ def filter_alive(df: pd.DataFrame) -> pd.DataFrame:
     )].reset_index(drop=True)
 
 
+def take_cols(df: pd.DataFrame, cols: List[str]):
+    pass
+
+
 if __name__ == '__main__':
     import re
 
