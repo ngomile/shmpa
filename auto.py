@@ -8,15 +8,15 @@ from utils import take_cols, filter_alive
 class SheetHandler:
     def __init__(self, document: str, sheet: str, alive_only: bool = True) -> None:
         config = get_config()
-        path = config[document]['path']
-        sheets = config[document]['sheets']
+        path = config['documents'][document]['path']
+        sheets = config['documents'][document]['sheets']
 
         dam_names = config['dam']['names']
         dam_converters = config['dam']['converters']
         dam_cols = config['dam']['cols']
 
         heifer_names = config['heifer']['names']
-        heifer_sheet = config[document]['sheets'][sheet]['heifer_sheet']
+        heifer_sheet = config['documents'][document]['sheets'][sheet]['heifer_sheet']
         heifer_converters = config['heifer']['converters']
 
         # In some cases some heifer sheets may have distinct column arrangement

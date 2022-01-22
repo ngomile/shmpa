@@ -39,24 +39,27 @@ def get_config() -> dict[str, dict[str, Any]]:
                 'repaid': bool,
             }
         },
-        'tm': {
-            'path': 'C:/Users/SHMPA Data/Documents/shmpa/fmrs TM Jul21.xlsx',
-            'sheets': {
-                'bt': {
-                    'heifer_sheet': 'bth',
-                    'heifer_cols': [1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, ]
-                },
-                'cm': {
-                    'heifer_sheet': 'cmh',
-                },
-                'mpA': {
-                    'heifer_sheet': 'mpAh',
-                    'db_path': 'C:/Users/SHMPA Data/Documents/mpa_animals.html'
-                },
-                'mpT': {
-                    'heifer_sheet': 'mpTh',
-                    'db_path': 'C:/Users/SHMPA Data/Documents/mpt_animals.html'
-                },
+        'documents': {
+            'tm': {
+                'path': 'C:/Users/SHMPA Data/Documents/shmpa/fmrs TM Jul21.xlsx',
+                'sheets': {
+                    'bt': {
+                        'heifer_sheet': 'bth',
+                        'heifer_cols': [1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, ]
+                    },
+                    'cm': {
+                        'heifer_sheet': 'cmh',
+                    },
+                    'mpA': {
+                        'heifer_sheet': 'mpAh',
+                        'db_path': 'C:/Users/SHMPA Data/Documents/mpa_animals.html'
+                    },
+                    'mpT': {
+                        'heifer_sheet': 'mpTh',
+                        'db_path': 'C:/Users/SHMPA Data/Documents/mpt_animals.html'
+                    },
+                }
             }
-        }
+
+        },
     }
