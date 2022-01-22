@@ -8,10 +8,7 @@ import pandas as pd
 
 from config import get_config
 
-EXCEL_SHEET: str = 'C:/Users/SHMPA Data/Documents/TM Tags.xlsx'
 OUTPUT_DIR: str = 'C:/Users/SHMPA Data/Documents/SHMPA Auto'
-MPA_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpa_list.html'
-MPT_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpt_list.html'
 
 DATE_TIME: str = date.today().strftime('%d_%m_%Y')
 
