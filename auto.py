@@ -2,7 +2,7 @@ import pandas as pd
 
 from config import get_config
 from records import RowRecord
-from utils import take_cols, filter_alive
+from utils import take_cols, filter_alive, stream_db_animals
 
 
 class SheetHandler:
@@ -23,6 +23,7 @@ class SheetHandler:
         heifer_cols = config['heifer']['cols']
         heifer_cols = sheets.get(sheet).get('heifer_cols') or heifer_cols
 
+        self._document = document
         self.df_dams: pd.DataFrame = pd.read_excel(
             path,
             names=dam_names,
@@ -65,6 +66,21 @@ class SheetHandler:
         for _, row in self.yield_rows():
             yield RowRecord.from_row(row)
 
-    def find_transferred(self, db_entries: dict[str, str]):
+    def find_transferred(self):
+        '''
+        Iterate through web animal list and find animals whose herds do not match with
+        the excel entries for that animal
+        '''
         records = self.yield_records()
-        cow_dict = {record.tag: record.farmer_name for record in records}
+        owners = {record.tag: record for record in records}
+
+        for entry in stream_db_animals(self._document):
+            if entry.tag in owners and entry.herd != owners[entry.tag].farmer_name:
+                yield {
+                    'tag': entry.tag,
+                    'from': entry.herd,
+                    'to': owners[entry.tag].farmer_name,
+                    'transfer_mbg': owners[entry.tag].mbg,
+                    'date': '',
+                    'reason': ''
+                }
