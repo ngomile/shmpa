@@ -57,7 +57,7 @@ def stream_db_animals(document: str):
     '''
     herd_selector = 'tr td:nth-child(1)'
     tag_selector = 'tr td:nth-child(2)'
-    herd_name = None
+    herd_name = ''
 
     for soup in soupify_web(document):
         for herd, tag in zip(soup.select(herd_selector), soup.select(tag_selector)):
