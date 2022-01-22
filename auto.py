@@ -47,7 +47,7 @@ class SheetHandler:
             self.df_dams = filter_alive(self.df_dams)
             self.df_heifers = filter_alive(self.df_heifers)
 
-    def yield_as_record(self):
+    def yield_records(self):
         '''
         Is a generator that yields the rows of both the dam sheet and the heifer sheet
         as a RowRecord
@@ -60,5 +60,5 @@ class SheetHandler:
             yield RowRecord.from_row(row)
 
     def find_transferred(self, db_entries: dict[str, str]):
-        records = self.yield_as_record()
+        records = self.yield_records()
         cow_dict = {record.tag: record.farmer_name for record in records}
