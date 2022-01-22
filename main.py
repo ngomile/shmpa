@@ -167,6 +167,27 @@ def soupify_web(document: str):
             yield soupify_path(db_path)
 
 
+def stream_db_animals(document: str):
+    '''
+    Returns an iterable of all the animals in the database in separate lists as one
+    stream of values to be consumed
+
+    :param document:
+        The key of the document to scan for paths to web documents
+    '''
+    herd_selector = 'tr td:nth-child(1)'
+    tag_selector = 'tr td:nth-child(2)'
+    herd_name = None
+
+    for soup in soupify_web(document):
+        for herd, tag in zip(soup.select(herd_selector), soup.select(tag_selector)):
+            herd, tag = herd.get_text(strip=True), tag.get_text(strip=True)
+            if herd:
+                herd_name = herd
+
+            yield herd_name, tag
+
+
 if __name__ == '__main__':
     import time
 
