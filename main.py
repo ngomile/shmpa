@@ -6,6 +6,8 @@ from typing import List
 import pandas as pd
 from bs4 import BeautifulSoup
 
+from config import get_config
+
 EXCEL_SHEET: str = 'C:/Users/SHMPA Data/Documents/TM Tags.xlsx'
 OUTPUT_DIR: str = 'C:/Users/SHMPA Data/Documents/SHMPA Auto'
 MPA_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpa_list.html'
@@ -28,8 +30,8 @@ def soupify_path(path: str) -> BeautifulSoup:
     :param path
         The path to the excel document
     """
-    with open(path, 'r') as f:
-        return BeautifulSoup(f.read(), 'html.parser')
+    with open(path, 'rb') as f:
+        return BeautifulSoup(f, 'html.parser')
 
 
 def extract_db_tags(soup: BeautifulSoup) -> List[str]:
@@ -148,6 +150,21 @@ def run():
 
     df_sheet.to_excel(SHEET_ONLY_PATH, index=False)
     df_db.to_excel(DB_ONLY_PATH, index=False)
+
+
+def soupify_web(document: str):
+    '''
+    Given document as key to one of the sheets in config, find all sheets that have
+    a website entry for the document and yield the soup instance
+
+    :param document:
+        The key of the document to be used
+    '''
+    config = get_config()
+    sheets = config['documents'][document]['sheets']
+    for sheet in sheets.keys():
+        if db_path := sheets[sheet].get('db_path'):
+            yield soupify_path(db_path)
 
 
 if __name__ == '__main__':
