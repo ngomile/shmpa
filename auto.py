@@ -11,7 +11,6 @@ class SheetHandler:
     def __init__(self, document: str, sheet: str, alive_only: bool = True) -> None:
         config = get_config()
         path = config['documents'][document]['path']
-        sheets = config['documents'][document]['sheets']
 
         dam_names = config['dam']['names']
         dam_converters = config['dam']['converters']
@@ -22,6 +21,7 @@ class SheetHandler:
         heifer_converters = config['heifer']['converters']
 
         # In some cases some heifer sheets may have distinct column arrangement
+        sheets = config['documents'][document]['sheets']
         heifer_cols = config['heifer']['cols']
         heifer_cols = sheets.get(sheet).get('heifer_cols') or heifer_cols
 

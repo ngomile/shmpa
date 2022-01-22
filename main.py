@@ -1,21 +1,20 @@
 if __name__ == '__main__':
     import time
 
+    import pandas as pd
+
     from auto import SheetHandler
+    from utils import OUTPUT_DIR
 
     start = time.perf_counter()
     document = 'tm'
-    sheets = ['mpA', 'mpT']
-    transfers = []
+    transferred: bool = False
 
-    for sheet in sheets:
-        sheet_handler = SheetHandler(document, sheet)
-        df_dams = sheet_handler.df_dams
-        df_heifers = sheet_handler.df_heifers
+    if transferred:
+        sheets = ['mpA', 'mpT']
+        transfers = list(SheetHandler.find_all_transfers(document, sheets))
+        _path = f'{OUTPUT_DIR}/transfers.xlsx'
+        pd.DataFrame(transfers).to_excel(_path, index=False)
 
-        for transfer in sheet_handler.find_transferred():
-            transfers.append(transfer)
-
-    print(transfers)
     end = time.perf_counter()
     print(f'That took {end - start}')
