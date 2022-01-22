@@ -117,3 +117,12 @@ class RowRecord:
             farmer_name=row['farmer_name'],
             mbg=row['mbg']
         )
+
+
+@dataclass
+class DBRecord:
+    '''
+    Record to represent a typical entry in animal list from web
+    '''
+    tag: str
+    herd: str
