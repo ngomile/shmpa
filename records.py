@@ -113,9 +113,9 @@ class RowRecord:
             The pandas series that contain entries matching this class constructor
         '''
         return cls(
-            tag=row['tag'],
-            farmer_name=row['farmer_name'],
-            mbg=row['mbg']
+            tag=row['tag'].strip(),
+            farmer_name=row['farmer_name'].strip(),
+            mbg=row['mbg'].strip()
         )
 
 
