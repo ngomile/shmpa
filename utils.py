@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 from config import get_config
+from records import DBRecord
 
 OUTPUT_DIR: str = 'C:/Users/SHMPA Data/Documents/SHMPA Auto'
 
@@ -64,7 +65,7 @@ def stream_db_animals(document: str):
             if herd:
                 herd_name = herd
 
-            yield herd_name, tag
+            yield DBRecord(tag, herd_name)
 
 
 def take_cols(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
