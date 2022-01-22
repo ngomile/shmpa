@@ -75,9 +75,11 @@ class SheetHandler:
         owners = {record.tag: record for record in records}
 
         for entry in stream_db_animals(self._document):
-            if entry.tag in owners and entry.herd != owners[entry.tag].farmer_name:
+            _from = entry.herd.lower()
+            if entry.tag in owners and _from != owners[entry.tag].farmer_name.lower():
                 yield {
                     'tag': entry.tag,
+                    'code': '',
                     'from': entry.herd,
                     'to': owners[entry.tag].farmer_name,
                     'transfer_mbg': owners[entry.tag].mbg,
