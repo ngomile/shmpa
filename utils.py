@@ -1,7 +1,73 @@
+import os
+from datetime import date
 import re
 from typing import List
 
+from bs4 import BeautifulSoup
 import pandas as pd
+
+from config import get_config
+
+EXCEL_SHEET: str = 'C:/Users/SHMPA Data/Documents/TM Tags.xlsx'
+OUTPUT_DIR: str = 'C:/Users/SHMPA Data/Documents/SHMPA Auto'
+MPA_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpa_list.html'
+MPT_HTML: str = 'C:/Users/SHMPA Data/Downloads/mpt_list.html'
+
+DATE_TIME: str = date.today().strftime('%d_%m_%Y')
+
+SHEET_ONLY_PATH: str = os.path.join(
+    OUTPUT_DIR,
+    f'SHEET_TAGS_{DATE_TIME}.xlsx'
+)
+DB_ONLY_PATH: str = os.path.join(OUTPUT_DIR, f'DB_TAGS_{DATE_TIME}.xlsx')
+
+
+def soupify_path(path: str) -> BeautifulSoup:
+    """
+    Open the path to the file and read it into the Beautiful constructor and
+    return the result
+
+    :param path
+        The path to the excel document
+    """
+    with open(path, 'rb') as f:
+        return BeautifulSoup(f, 'html.parser')
+
+
+def soupify_web(document: str):
+    '''
+    Given document as key to one of the sheets in config, find all sheets that have
+    a website entry for the document and yield the soup instance
+
+    :param document:
+        The key of the document to be used
+    '''
+    config = get_config()
+    sheets = config['documents'][document]['sheets']
+    for sheet in sheets.keys():
+        if db_path := sheets[sheet].get('db_path'):
+            yield soupify_path(db_path)
+
+
+def stream_db_animals(document: str):
+    '''
+    Returns an iterable of all the animals in the database in separate lists as one
+    stream of values to be consumed
+
+    :param document:
+        The key of the document to scan for paths to web documents
+    '''
+    herd_selector = 'tr td:nth-child(1)'
+    tag_selector = 'tr td:nth-child(2)'
+    herd_name = None
+
+    for soup in soupify_web(document):
+        for herd, tag in zip(soup.select(herd_selector), soup.select(tag_selector)):
+            herd, tag = herd.get_text(strip=True), tag.get_text(strip=True)
+            if herd:
+                herd_name = herd
+
+            yield herd_name, tag
 
 
 def take_cols(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
