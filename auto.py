@@ -47,16 +47,22 @@ class SheetHandler:
             self.df_dams = filter_alive(self.df_dams)
             self.df_heifers = filter_alive(self.df_heifers)
 
-    def yield_records(self):
+    def yield_rows(self):
         '''
-        Is a generator that yields the rows of both the dam sheet and the heifer sheet
-        as a RowRecord
+        Lazily returns the rows for all the dam and heifer sheets
         '''
         cols = ['tag', 'farmer_name', 'mbg']
-        for _, row in take_cols(self.df_dams, cols).iterrows():
-            yield RowRecord.from_row(row)
+        for entry in take_cols(self.df_dams, cols).iterrows():
+            yield entry
 
-        for _, row in take_cols(self.df_heifers, cols).iterrows():
+        for entry in take_cols(self.df_heifers, cols).iterrows():
+            yield entry
+
+    def yield_records(self):
+        '''
+        Lazily creates instances of RowRecords from rows
+        '''
+        for _, row in self.yield_rows():
             yield RowRecord.from_row(row)
 
     def find_transferred(self, db_entries: dict[str, str]):
