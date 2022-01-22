@@ -1,3 +1,5 @@
+from typing import List
+
 import pandas as pd
 
 from config import get_config
@@ -86,3 +88,21 @@ class SheetHandler:
                     'date': '',
                     'reason': ''
                 }
+
+    @classmethod
+    def find_all_transfers(cls, document: str, sheets: List[str]):
+        '''
+        This method goes through the provided sheets and creates SheetHandler instances
+        for each sheet and finds the cows that have likely been transferred to other
+        farmers
+
+        :param document
+            The document containing the sheets we are interested in
+        :param sheets
+            The sheets to scan through and compare animal list from the database to
+            them
+        '''
+        for sheet in sheets:
+            sheet_handler = cls(document, sheet)
+            for transfer in sheet_handler.find_transferred():
+                yield transfer
