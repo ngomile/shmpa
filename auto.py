@@ -9,46 +9,61 @@ from utils import take_cols, filter_alive, stream_db_animals
 
 class SheetHandler:
     def __init__(self, document: str, sheet: str, alive_only: bool = True) -> None:
-        config = get_config()
-        path = config['documents'][document]['path']
-
-        dam_names = config['dam']['names']
-        dam_converters = config['dam']['converters']
-        dam_cols = config['dam']['cols']
-
-        heifer_names = config['heifer']['names']
-        heifer_sheet = config['documents'][document]['sheets'][sheet]['heifer_sheet']
-        heifer_converters = config['heifer']['converters']
-
-        # In some cases some heifer sheets may have distinct column arrangement
-        sheets = config['documents'][document]['sheets']
-        heifer_cols = config['heifer']['cols']
-        heifer_cols = sheets.get(sheet).get('heifer_cols') or heifer_cols
-
+        self._config = get_config()
+        self._path = self._config['documents'][document]['path']
+        self._alive_only = alive_only
         self._document = document
-        self.df_dams: pd.DataFrame = pd.read_excel(
-            path,
-            names=dam_names,
-            usecols=dam_cols,
-            na_filter=False,
-            converters=dam_converters,
-            sheet_name=sheet,
-            skiprows=2
-        )
+        self._sheet = sheet
 
-        self.df_heifers: pd.DataFrame = pd.read_excel(
-            path,
-            names=heifer_names,
-            usecols=heifer_cols,
-            converters=heifer_converters,
-            sheet_name=heifer_sheet,
-            na_filter=False,
-            skiprows=3
-        )
+    @property
+    def df_dams(self) -> pd.DataFrame:
+        if not hasattr(self, '_df_dams'):
+            dam_names = self._config['dam']['names']
+            dam_converters = self._config['dam']['converters']
+            dam_cols = self._config['dam']['cols']
 
-        if alive_only:
-            self.df_dams = filter_alive(self.df_dams)
-            self.df_heifers = filter_alive(self.df_heifers)
+            self._df_dams: pd.DataFrame = pd.read_excel(
+                self._path,
+                names=dam_names,
+                usecols=dam_cols,
+                na_filter=False,
+                converters=dam_converters,
+                sheet_name=self._sheet,
+                skiprows=2
+            )
+
+            if self._alive_only:
+                self._df_dams = filter_alive(self._df_dams)
+
+        return self._df_dams
+
+    @property
+    def df_heifers(self) -> pd.DataFrame:
+        if not hasattr(self, '_df_heifers'):
+            heifer_names = self._config['heifer']['names']
+            heifer_sheet = self._config['documents'][self._document]['sheets'][self._sheet]['heifer_sheet']
+            heifer_converters = self._config['heifer']['converters']
+
+            # In some cases some heifer sheets may have distinct column arrangement
+            sheets = self._config['documents'][self._document]['sheets']
+            heifer_cols = self._config['heifer']['cols']
+            heifer_cols = sheets.get(self._sheet).get(
+                'heifer_cols') or heifer_cols
+
+            self._df_heifers: pd.DataFrame = pd.read_excel(
+                self._path,
+                names=heifer_names,
+                usecols=heifer_cols,
+                converters=heifer_converters,
+                sheet_name=heifer_sheet,
+                na_filter=False,
+                skiprows=3
+            )
+
+            if self._alive_only:
+                self._df_heifers = filter_alive(self._df_heifers)
+
+        return self._df_heifers
 
     def yield_rows(self):
         '''
