@@ -52,14 +52,14 @@ def get_config() -> dict[str, dict[str, Any]]:
                     },
                     'mpA': {
                         'heifer_sheet': 'mpAh',
-                        'db_path': 'C:/Users/SHMPA Data/Documents/mpa_animals.html'
+                        'db_path': 'C:/Users/SHMPA Data/Documents/mpa.html'
                     },
                     'mpT': {
                         'heifer_sheet': 'mpTh',
-                        'db_path': 'C:/Users/SHMPA Data/Documents/mpt_animals.html'
+                        'db_path': 'C:/Users/SHMPA Data/Documents/mpt.html'
                     },
                 }
             }
 
-        },
+        }
     }
