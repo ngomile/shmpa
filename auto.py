@@ -1,4 +1,5 @@
 from typing import List
+import os
 
 import pandas as pd
 
@@ -14,6 +15,8 @@ class SheetHandler:
         self._alive_only = alive_only
         self._document = document
         self._sheet = sheet
+
+        assert os.path.isfile(self._path), "Incorrect file path provided"
 
     @property
     def df_dams(self) -> pd.DataFrame:
