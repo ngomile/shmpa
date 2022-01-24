@@ -61,7 +61,7 @@ def get_config() -> dict[str, dict[str, Any]]:
     return {
         'dam': {
             'names': DAM_NAMES,
-            'cols': [DAM_COLS[col] for col in DAM_NAMES],
+            'cols': ', '.join([DAM_COLS[col] for col in DAM_NAMES]),
             'converters': {
                 'tag': str,
                 'code': str,
@@ -73,7 +73,7 @@ def get_config() -> dict[str, dict[str, Any]]:
         },
         'heifer': {
             'names': HEIFER_NAMES,
-            'cols': [HEIFER_COLS[col] for col in HEIFER_NAMES],
+            'cols': ', '.join([HEIFER_COLS[col] for col in HEIFER_NAMES]),
             'converters': {
                 'tag': str,
                 'dam': str,
