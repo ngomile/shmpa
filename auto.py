@@ -43,28 +43,34 @@ class SheetHandler:
     @property
     def df_heifers(self) -> pd.DataFrame:
         if not hasattr(self, '_df_heifers'):
+            # Initialize heifer df to empty in case heifer sheet is unspecified
+            self._df_heifers: pd.DataFrame = pd.DataFrame({})
             heifer_names = self._config['heifer']['names']
-            heifer_sheet = self._config['documents'][self._document]['sheets'][self._sheet]['heifer_sheet']
+            heifer_cols = self._config['heifer']['cols']
             heifer_converters = self._config['heifer']['converters']
 
-            # In some cases some heifer sheets may have distinct column arrangement
-            sheets = self._config['documents'][self._document]['sheets']
-            heifer_cols = self._config['heifer']['cols']
-            heifer_cols = sheets.get(self._sheet).get(
-                'heifer_cols') or heifer_cols
-
-            self._df_heifers: pd.DataFrame = pd.read_excel(
-                self._path,
-                names=heifer_names,
-                usecols=heifer_cols,
-                converters=heifer_converters,
-                sheet_name=heifer_sheet,
-                na_filter=False,
-                skiprows=3
+            heifer_sheet = self._config['documents'][self._document]['sheets'][self._sheet].get(
+                'heifer_sheet'
             )
 
-            if self._alive_only:
-                self._df_heifers = filter_alive(self._df_heifers)
+            if heifer_sheet:
+                # In some cases some heifer sheets may have distinct column arrangement
+                sheets = self._config['documents'][self._document]['sheets']
+                heifer_cols = sheets.get(self._sheet).get(
+                    'heifer_cols') or heifer_cols
+
+                self._df_heifers = pd.read_excel(
+                    self._path,
+                    names=heifer_names,
+                    usecols=heifer_cols,
+                    converters=heifer_converters,
+                    sheet_name=heifer_sheet,
+                    na_filter=False,
+                    skiprows=3
+                )
+
+                if self._alive_only:
+                    self._df_heifers = filter_alive(self._df_heifers)
 
         return self._df_heifers
 
