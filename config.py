@@ -1,5 +1,37 @@
 from typing import Any
 
+DAM_COLS = {
+    'tag': 'B',
+    'comment': 'C',
+    'code': 'D',
+    'farmer_name': 'E',
+    'cow_no': 'F',
+    'established': 'G',
+    'mbg': 'H',
+    'village': 'J',
+    'zone': 'K',
+    'date_recv': 'L',
+    'repaid': ' M',
+    'calves_due': 'N',
+    'tag_2019': 'BM',
+    'date_2019': 'BN',
+    'tag_2020': 'BQ',
+    'date_2020': 'BR',
+    'tag_2021': 'BU',
+    'date_2021': 'BV',
+    'events': 'BY',
+    'breed': 'CC',
+    'semen': 'CD',
+    'born': 'CE',
+    'source': 'CF',
+    'removed': 'CS',
+    'cause': 'CT',
+    'destination': 'CU',
+    'decision': 'CV',
+    'last_calved': 'CW',
+    'status': 'CZ',
+}
+
 
 def get_config() -> dict[str, dict[str, Any]]:
     return {
