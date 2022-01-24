@@ -32,6 +32,26 @@ DAM_COLS = {
     'status': 'CZ',
 }
 
+HEIFER_COLS = {
+    'tag': '',
+    'code': '',
+    'farmer_name': '',
+    'breed': '',
+    'dam': '',
+    'events': '',
+    'mbg': '',
+    'cow_no': '',
+    'repaid': '',
+    'transfer_name': '',
+    'transfer_mbg': '',
+    'transfer_date': '',
+    'born': '',
+    'weight': '',
+    'monthy_gain': '',
+    'last_weighed': '',
+    'status': '',
+}
+
 
 def get_config() -> dict[str, dict[str, Any]]:
     return {
