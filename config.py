@@ -8,7 +8,7 @@ def get_config() -> dict[str, dict[str, Any]]:
                 'tag', 'comment', 'code', 'farmer_name', 'cow_no', 'established',
                 'mbg', 'village', 'zone', 'date_recv', 'repaid', 'calves_due',
                 'tag_2019', 'date_2019', 'tag_2020', 'date_2020', 'tag_2021',
-                'date_2021', 'events', 'breed', 'semen', 'date_born', 'source',
+                'date_2021', 'events', 'breed', 'semen', 'born', 'source',
                 'date_removed', 'cause', 'destination', 'future_decision',
                 'last_calved', 'status',
             ],
