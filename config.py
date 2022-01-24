@@ -82,7 +82,7 @@ def get_config() -> dict[str, dict[str, Any]]:
             'tm': {
                 'path': 'C:/Users/SHMPA Data/Documents/shmpa/fmrs TM Jul21.xlsx',
                 'sheets': {
-                    'bt': None,
+                    'bt': {},
                     'cm': {
                         'heifer_sheet': 'cmh',
                     },
