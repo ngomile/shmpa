@@ -48,7 +48,7 @@ HEIFER_COLS = {
     'date_removed': 'P',
     'born': 'Q',
     'weight': 'R',
-    'monthy_gain': 'S',
+    'monthly_gain': 'S',
     'last_weighed': 'T',
     'status': 'U',
 }
@@ -72,7 +72,7 @@ def get_config() -> dict[str, dict[str, Any]]:
             'names': [
                 'tag', 'code', 'farmer_name', 'breed', 'dam', 'events', 'mbg', 'cow_no',
                 'repaid', 'transfer_name', 'transfer_mbg', 'transfer_date', 'born',
-                'weight', 'monthy_gain', 'last_weighed', 'status',
+                'weight', 'monthly_gain', 'last_weighed', 'status',
             ],
             'cols': [1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ],
             'converters': {
