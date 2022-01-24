@@ -36,18 +36,8 @@ DAM_COLS = {
 def get_config() -> dict[str, dict[str, Any]]:
     return {
         'dam': {
-            'names': [
-                'tag', 'comment', 'code', 'farmer_name', 'cow_no', 'established',
-                'mbg', 'village', 'zone', 'date_recv', 'repaid', 'calves_due',
-                'tag_2019', 'date_2019', 'tag_2020', 'date_2020', 'tag_2021',
-                'date_2021', 'events', 'breed', 'semen', 'born', 'source',
-                'date_removed', 'cause', 'destination', 'future_decision',
-                'last_calved', 'status',
-            ],
-            'cols': [
-                1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 64, 65, 68, 69, 72, 73, 76,
-                80, 81, 82, 83, 96, 97, 98, 99, 100, 110,
-            ],
+            'names': [name for name in DAM_COLS.keys()],
+            'cols': [col for col in DAM_COLS.values()],
             'converters': {
                 'tag': str,
                 'code': str,
