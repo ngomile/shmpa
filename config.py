@@ -27,11 +27,11 @@ def get_config() -> dict[str, dict[str, Any]]:
         },
         'heifer': {
             'names': [
-                'tag', 'farmer_name', 'breed', 'dam', 'events', 'mbg', 'cow_no',
+                'tag', 'code', 'farmer_name', 'breed', 'dam', 'events', 'mbg', 'cow_no',
                 'repaid', 'transfer_name', 'transfer_mbg', 'transfer_date', 'born',
                 'weight', 'monthy_gain', 'last_weighed', 'status',
             ],
-            'cols': [1, 3, 4, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ],
+            'cols': [1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ],
             'converters': {
                 'tag': str,
                 'dam': str,
