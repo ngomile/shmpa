@@ -11,7 +11,7 @@ DAM_COLS = {
     'village': 'J',
     'zone': 'K',
     'date_recv': 'L',
-    'repaid': ' M',
+    'repaid': 'M',
     'calves_due': 'N',
     'tag_2019': 'BM',
     'date_2019': 'BN',
@@ -69,12 +69,8 @@ def get_config() -> dict[str, dict[str, Any]]:
             }
         },
         'heifer': {
-            'names': [
-                'tag', 'code', 'farmer_name', 'breed', 'dam', 'events', 'mbg', 'cow_no',
-                'repaid', 'transfer_name', 'transfer_mbg', 'transfer_date', 'born',
-                'weight', 'monthly_gain', 'last_weighed', 'status',
-            ],
-            'cols': [1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ],
+            'names': [name for name in HEIFER_COLS.keys()],
+            'cols': [col for col in HEIFER_COLS.values()],
             'converters': {
                 'tag': str,
                 'dam': str,
@@ -106,3 +102,9 @@ def get_config() -> dict[str, dict[str, Any]]:
 
         }
     }
+
+
+if __name__ == '__main__':
+    from pprint import PrettyPrinter
+
+    PrettyPrinter(compact=True, sort_dicts=True).pprint(get_config())
