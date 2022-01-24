@@ -55,10 +55,13 @@ HEIFER_COLS = {
 
 
 def get_config() -> dict[str, dict[str, Any]]:
+    DAM_NAMES = [name for name in DAM_COLS.keys()]
+    HEIFER_NAMES = [name for name in HEIFER_COLS.keys()]
+
     return {
         'dam': {
-            'names': [name for name in DAM_COLS.keys()],
-            'cols': [col for col in DAM_COLS.values()],
+            'names': DAM_NAMES,
+            'cols': [DAM_COLS[col] for col in DAM_NAMES],
             'converters': {
                 'tag': str,
                 'code': str,
@@ -69,8 +72,8 @@ def get_config() -> dict[str, dict[str, Any]]:
             }
         },
         'heifer': {
-            'names': [name for name in HEIFER_COLS.keys()],
-            'cols': [col for col in HEIFER_COLS.values()],
+            'names': HEIFER_NAMES,
+            'cols': [HEIFER_COLS[col] for col in HEIFER_NAMES],
             'converters': {
                 'tag': str,
                 'dam': str,
