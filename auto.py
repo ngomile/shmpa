@@ -114,7 +114,7 @@ class SheetHandler:
                     'tag': db_tag,
                     'from': ' '.join([name.capitalize() for name in db_herd.split(' ')]),
                     'to': sheet_record.farmer_name,
-                    'transfer_farm_code': '',
+                    'transfer_farm_code': sheet_record.code,
                     'transfer_mbg': sheet_record.mbg,
                     'date': '',
                     'reason': ''
