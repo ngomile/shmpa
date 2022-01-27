@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import datetime
 from typing import Dict
 
 import pandas as pd
@@ -103,6 +104,16 @@ class RowRecord:
     tag: str
     farmer_name: str
     mbg: str
+    code: str
+    cow_no: str
+    repaid: bool
+    events: str
+    breed: str
+    semen: str
+    born: datetime.datetime
+    date_removed: datetime.datetime
+    destination: str
+    status: str
 
     @classmethod
     def from_row(cls, row: pd.Series):
@@ -115,7 +126,14 @@ class RowRecord:
         return cls(
             tag=row['tag'].strip(),
             farmer_name=row['farmer_name'].strip(),
-            mbg=row['mbg'].strip()
+            mbg=row['mbg'].strip(),
+            code=row['code'],
+            cow_no=row['cow_no'],
+            repaid=row['repaid'],
+            events=row['events'],
+            breed=row['breed'],
+            semen=row['semen'],
+            born=row['born']
         )
 
 

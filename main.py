@@ -16,5 +16,8 @@ if __name__ == '__main__':
         _path = f'{OUTPUT_DIR}/transfers.xlsx'
         pd.DataFrame(transfers).to_excel(_path, index=False)
 
+    sheet_handler = SheetHandler(document, 'mpA')
+    print(type(sheet_handler.df_dams.head(25)['date_recv'][0]))
+
     end = time.perf_counter()
     print(f'That took {end - start}')
