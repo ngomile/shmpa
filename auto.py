@@ -112,7 +112,7 @@ class SheetHandler:
 
                 yield {
                     'tag': db_tag,
-                    'from': db_herd,
+                    'from': ' '.join([name.capitalize() for name in db_herd.split(' ')]),
                     'to': sheet_record.farmer_name,
                     'transfer_farm_code': '',
                     'transfer_mbg': sheet_record.mbg,
