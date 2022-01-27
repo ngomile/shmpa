@@ -78,11 +78,10 @@ class SheetHandler:
         '''
         Lazily returns the rows for all the dam and heifer sheets
         '''
-        cols = ['tag', 'farmer_name', 'mbg']
-        for entry in take_cols(self.df_dams, cols).iterrows():
+        for entry in self.df_dams.iterrows():
             yield entry
 
-        for entry in take_cols(self.df_heifers, cols).iterrows():
+        for entry in self.df_heifers.iterrows():
             yield entry
 
     def yield_records(self):
