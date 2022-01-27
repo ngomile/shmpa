@@ -77,7 +77,6 @@ def get_config() -> dict[str, dict[str, Any]]:
             'converters': {
                 'tag': str,
                 'dam': str,
-                'monthly_gain': int,
                 'repaid': bool,
             }
         },
