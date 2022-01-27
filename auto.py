@@ -153,3 +153,17 @@ class SheetHandler:
             for sheet in cls._CONFIG['documents'][document]['sheets'].keys():
                 for row in SheetHandler(document, sheet, alive).yield_rows():
                     yield row
+
+    @classmethod
+    def yield_all_records(cls, alive: bool = True):
+        '''
+        Creates instances of RowRecords for every row returned from the call to
+        yield_all_rows, this is a convenience method as sometimes we might want
+        to manipulate commonly held attributes that appear in both the dam and
+        heifer sheets
+
+        :param alive
+            Whether to only return the rows of animals that are alive
+        '''
+        for index, row in cls.yield_all_rows(alive):
+            yield RowRecord.from_row(row)
