@@ -114,6 +114,7 @@ class RowRecord:
     date_removed: datetime.datetime
     destination: str
     status: str
+    is_dam: bool
 
     @classmethod
     def from_row(cls, row: pd.Series):
@@ -137,6 +138,7 @@ class RowRecord:
             date_removed=row['date_removed'],
             destination=row['destination'],
             status=row['status'],
+            is_dam=row['is_dam']
         )
 
 
