@@ -99,19 +99,20 @@ class SheetHandler:
         '''
         sheet_records = {record.tag: record for record in self.yield_records()}
 
-        for entry in stream_db_animals(self._document):
+        for db_animal in stream_db_animals(self._document):
             # _from stores the name of the herd taken from the database and we then
             # compare it's value to the farmer name of the cow tag in the sheets
-            db_tag = entry.tag
-            db_herd_name = entry.herd.lower()
-            sheet_herd_name = sheet_records[entry.tag].farmer_name.lower()
-            if db_tag in sheet_records and db_herd_name != sheet_herd_name:
+            db_tag = db_animal.tag
+            db_herd = db_animal.herd.lower()
+            sheet_herd = sheet_records[db_animal.tag].farmer_name.lower()
+
+            if db_tag in sheet_records and db_herd != sheet_herd:
                 yield {
-                    'tag': entry.tag,
-                    'from': entry.herd,
-                    'to': sheet_records[entry.tag].farmer_name,
+                    'tag': db_animal.tag,
+                    'from': db_animal.herd,
+                    'to': sheet_records[db_animal.tag].farmer_name,
                     'transfer_farm_code': '',
-                    'transfer_mbg': sheet_records[entry.tag].mbg,
+                    'transfer_mbg': sheet_records[db_animal.tag].mbg,
                     'date': '',
                     'reason': ''
                 }
