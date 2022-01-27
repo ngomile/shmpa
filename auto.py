@@ -9,9 +9,10 @@ from utils import take_cols, filter_alive, stream_db_animals
 
 
 class SheetHandler:
+    _CONFIG = get_config()
+
     def __init__(self, document: str, sheet: str, alive_only: bool = True) -> None:
-        self._config = get_config()
-        self._path = self._config['documents'][document]['path']
+        self._path = self._CONFIG['documents'][document]['path']
         self._alive_only = alive_only
         self._document = document
         self._sheet = sheet
@@ -21,9 +22,9 @@ class SheetHandler:
     @property
     def df_dams(self) -> pd.DataFrame:
         if not hasattr(self, '_df_dams'):
-            dam_names = self._config['dam']['names']
-            dam_converters = self._config['dam']['converters']
-            dam_cols = self._config['dam']['cols']
+            dam_names = self._CONFIG['dam']['names']
+            dam_converters = self._CONFIG['dam']['converters']
+            dam_cols = self._CONFIG['dam']['cols']
 
             self._df_dams: pd.DataFrame = pd.read_excel(
                 self._path,
@@ -46,17 +47,17 @@ class SheetHandler:
         if not hasattr(self, '_df_heifers'):
             # Initialize heifer df to empty in case heifer sheet is unspecified
             self._df_heifers: pd.DataFrame = pd.DataFrame({})
-            heifer_names = self._config['heifer']['names']
-            heifer_cols = self._config['heifer']['cols']
-            heifer_converters = self._config['heifer']['converters']
+            heifer_names = self._CONFIG['heifer']['names']
+            heifer_cols = self._CONFIG['heifer']['cols']
+            heifer_converters = self._CONFIG['heifer']['converters']
 
-            heifer_sheet = self._config['documents'][self._document]['sheets'][self._sheet].get(
+            heifer_sheet = self._CONFIG['documents'][self._document]['sheets'][self._sheet].get(
                 'heifer_sheet'
             )
 
             if heifer_sheet:
                 # In some cases some heifer sheets may have distinct column arrangement
-                sheets = self._config['documents'][self._document]['sheets']
+                sheets = self._CONFIG['documents'][self._document]['sheets']
                 heifer_cols = sheets.get(self._sheet).get(
                     'heifer_cols') or heifer_cols
 
@@ -137,3 +138,18 @@ class SheetHandler:
             sheet_handler = cls(document, sheet)
             for transfer in sheet_handler.find_transferred():
                 yield transfer
+
+    @classmethod
+    def yield_all_rows(cls, alive: bool = True):
+        '''
+        Goes through all the documents and creates SheetHandler instances for each
+        document and yields the animals for all the dam and heifer sheets in one
+        stream of data
+
+        :param alive
+            Whether to filter animals that are only alive
+        '''
+        for document in cls._CONFIG['documents'].keys():
+            for sheet in cls._CONFIG['documents'][document]['sheets'].keys():
+                for row in SheetHandler(document, sheet, alive).yield_rows():
+                    yield row
