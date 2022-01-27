@@ -133,7 +133,10 @@ class RowRecord:
             events=row['events'],
             breed=row['breed'],
             semen=row['semen'],
-            born=row['born']
+            born=row['born'],
+            date_removed=row['date_removed'],
+            destination=row['destination'],
+            status=row['status'],
         )
 
 
