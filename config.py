@@ -69,6 +69,8 @@ def get_config() -> dict[str, dict[str, Any]]:
                 'established': str,
                 'zone': str,
                 'repaid': bool,
+                'born': str,
+                'date_removed': str,
             }
         },
         'heifer': {
@@ -78,6 +80,8 @@ def get_config() -> dict[str, dict[str, Any]]:
                 'tag': str,
                 'dam': str,
                 'repaid': bool,
+                'born': str,
+                'date_removed': str,
             }
         },
         'documents': {

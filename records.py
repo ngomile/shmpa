@@ -110,8 +110,8 @@ class RowRecord:
     events: str
     breed: str
     semen: str
-    born: datetime.datetime
-    date_removed: datetime.datetime
+    born: str
+    date_removed: str
     destination: str
     status: str
     is_dam: bool
