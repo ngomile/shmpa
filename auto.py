@@ -37,6 +37,7 @@ class SheetHandler:
 
             if self._alive_only:
                 self._df_dams = filter_alive(self._df_dams)
+            self._df_dams['is_dam'] = True
 
         return self._df_dams
 
@@ -71,6 +72,7 @@ class SheetHandler:
 
                 if self._alive_only:
                     self._df_heifers = filter_alive(self._df_heifers)
+                self.df_heifers['is_dam'] = False
 
         return self._df_heifers
 
