@@ -97,8 +97,7 @@ class SheetHandler:
         Iterate through web animal list and find animals whose herds do not match with
         the excel entries for that animal
         '''
-        records = self.yield_records()
-        sheet_records = {record.tag: record for record in records}
+        sheet_records = {record.tag: record for record in self.yield_records()}
 
         for entry in stream_db_animals(self._document):
             # _from stores the name of the herd taken from the database and we then
