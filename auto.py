@@ -107,12 +107,14 @@ class SheetHandler:
             sheet_herd = sheet_records[db_animal.tag].farmer_name.lower()
 
             if db_tag in sheet_records and db_herd != sheet_herd:
+                sheet_record = sheet_records[db_tag]
+
                 yield {
-                    'tag': db_animal.tag,
-                    'from': db_animal.herd,
-                    'to': sheet_records[db_animal.tag].farmer_name,
+                    'tag': db_tag,
+                    'from': db_herd,
+                    'to': sheet_record.farmer_name,
                     'transfer_farm_code': '',
-                    'transfer_mbg': sheet_records[db_animal.tag].mbg,
+                    'transfer_mbg': sheet_record.mbg,
                     'date': '',
                     'reason': ''
                 }
