@@ -5,7 +5,7 @@ import pandas as pd
 
 from config import get_config
 from records import RowRecord
-from utils import take_cols, filter_alive, stream_db_animals
+from utils import filter_alive, stream_db_animals
 
 
 class SheetHandler:
@@ -106,9 +106,8 @@ class SheetHandler:
             # compare it's value to the farmer name of the cow tag in the sheets
             db_tag = db_animal.tag
             db_herd = db_animal.herd.lower()
-            sheet_herd = sheet_records[db_animal.tag].farmer_name.lower()
 
-            if db_tag in sheet_records and db_herd != sheet_herd:
+            if db_tag in sheet_records and db_herd != sheet_records[db_tag].farmer_name.lower():
                 sheet_record = sheet_records[db_tag]
 
                 yield {
@@ -122,7 +121,7 @@ class SheetHandler:
                 }
 
     @classmethod
-    def find_all_transfers(cls, document: str, sheets: List[str]):
+    def find_all_transfers(cls, document: str, sheets: List[str], alive: bool = False):
         '''
         This method goes through the provided sheets and creates SheetHandler instances
         for each sheet and finds the cows that have likely been transferred to other
@@ -135,7 +134,7 @@ class SheetHandler:
             them
         '''
         for sheet in sheets:
-            sheet_handler = cls(document, sheet)
+            sheet_handler = cls(document, sheet, alive)
             for transfer in sheet_handler.find_transferred():
                 yield transfer
 
