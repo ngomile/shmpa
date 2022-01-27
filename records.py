@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import datetime
-from typing import Dict
+from typing import Dict, Any
 
 import pandas as pd
 
@@ -140,6 +140,27 @@ class RowRecord:
             status=row['status'],
             is_dam=row['is_dam']
         )
+
+    def to_dict(self) -> Dict[str, Any]:
+        '''
+        Returns the dictionary representation of the RowRecord type
+        '''
+        return {
+            'tag': self.tag,
+            'farmer_name': self.farmer_name,
+            'mbg': self.mbg,
+            'code': self.code,
+            'cow_no': self.cow_no,
+            'repaid': self.repaid,
+            'events': self.events,
+            'breed': self.breed,
+            'semen': self.semen,
+            'born': self.born,
+            'date_removed': self.date_removed,
+            'destination': self.destination,
+            'status': self.status,
+            'is_dam': self.is_dam,
+        }
 
 
 @dataclass
