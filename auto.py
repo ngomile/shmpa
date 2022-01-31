@@ -13,20 +13,26 @@ class SheetHandler:
 
     def __init__(self, document: str, /, sheet: str = None, alive_only: bool = True) -> None:
         config = self._CONFIG
-        assert document in config['documents'], 'Incorrect document key provided'
-        self._path = self._CONFIG['documents'][document]['path']
-        assert os.path.isfile(self._path), 'Incorrect file path provided'
+        documents = config['documents']
+        assert document in documents, f'Incorrect document key provided {document}'
 
+        path = self._CONFIG['documents'][document].get('path', '')
+        error_msg = f'Incorrect file path provided {path}'
+        assert os.path.isfile(path), error_msg
+
+        if sheet:
+            error_msg = f'Incorrect key for sheet {sheet}'
+            assert sheet in config['documents'][document]['sheets'], error_msg
+        elif sheet is None:
+            entries = config['documents'][document]['sheets'].keys()
+            sheet = list(entries)[0]
+
+        self._path = path
         self._alive_only = alive_only
         self._document = document
         self._sheet = sheet
 
-        if self._sheet is None:
-            self._sheet = list(
-                config['documents'][document]['sheets'].keys()
-            )[0]
-
-    @property
+    @ property
     def df_dams(self) -> pd.DataFrame:
         if not hasattr(self, '_df_dams'):
             dam_names = self._CONFIG['dam']['names']
