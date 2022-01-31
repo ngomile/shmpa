@@ -11,7 +11,7 @@ from utils import filter_alive, stream_db_animals
 class SheetHandler:
     _CONFIG = get_config()
 
-    def __init__(self, document: str, sheet: str = None, alive_only: bool = True) -> None:
+    def __init__(self, document: str, /, sheet: str = None, alive_only: bool = True) -> None:
         self._path = self._CONFIG['documents'][document]['path']
         self._alive_only = alive_only
         self._document = document
