@@ -44,6 +44,9 @@ def soupify_web(document: str):
     sheets = config['documents'][document]['sheets']
     for sheet in sheets.keys():
         if db_path := sheets[sheet].get('db_path'):
+            assert os.path.isfile(
+                db_path
+            ), 'Incorrect path provided for database file'
             yield soupify_path(db_path)
 
 
@@ -55,8 +58,6 @@ def stream_db_animals(document: str):
     :param document:
         The key of the document to scan for paths to web documents
     '''
-    assert os.path.isfile(document), f'Incorrect file path provided {document}'
-
     herd_selector = 'tr td:nth-child(1)'
     tag_selector = 'tr td:nth-child(2)'
     herd_name = ''

@@ -12,13 +12,14 @@ class SheetHandler:
     _CONFIG = get_config()
 
     def __init__(self, document: str, /, sheet: str = None, alive_only: bool = True) -> None:
+        config = self._CONFIG
+        assert document in config['documents'], 'Incorrect document key provided'
         self._path = self._CONFIG['documents'][document]['path']
+        assert os.path.isfile(self._path), 'Incorrect file path provided'
+
         self._alive_only = alive_only
         self._document = document
         self._sheet = sheet
-        config = self._CONFIG
-
-        assert os.path.isfile(self._path), "Incorrect file path provided"
 
         if self._sheet is None:
             self._sheet = list(
