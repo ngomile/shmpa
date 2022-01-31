@@ -11,13 +11,19 @@ from utils import filter_alive, stream_db_animals
 class SheetHandler:
     _CONFIG = get_config()
 
-    def __init__(self, document: str, sheet: str, alive_only: bool = True) -> None:
+    def __init__(self, document: str, sheet: str = None, alive_only: bool = True) -> None:
         self._path = self._CONFIG['documents'][document]['path']
         self._alive_only = alive_only
         self._document = document
         self._sheet = sheet
+        config = self._CONFIG
 
         assert os.path.isfile(self._path), "Incorrect file path provided"
+
+        if self._sheet is None:
+            self._sheet = list(
+                config['documents'][document]['sheets'].keys()
+            )[0]
 
     @property
     def df_dams(self) -> pd.DataFrame:
