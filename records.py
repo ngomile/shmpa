@@ -140,6 +140,16 @@ class RowRecord:
             is_dam=row['is_dam']
         )
 
+    def removal_records(self, df: pd.DataFrame) -> pd.DataFrame:
+        '''
+        With the given dataframe scan for rows that may contain transfer, death or
+        sold data for the cow matching the tag of this record, if no record is
+        found an empty data frame will be returned
+        '''
+        df_removal = pd.DataFrame({})
+
+        return df_removal
+
     def to_dict(self) -> Dict[str, Any]:
         '''
         Returns the dictionary representation of the RowRecord type
