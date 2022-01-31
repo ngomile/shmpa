@@ -1,11 +1,11 @@
 #todo
 ####INCOMPLETE####
 - Add option to select start and end of rows to be processed in sheets
-- Add functionality to parse animal list from database, returning a dict linking
-  tags to their respective owners in the database
 - Add functionality to check if the list of records in the calving years is realistic
 - Add farmer record type to records
 ####COMPLETE####
+- Add functionality to parse animal list from database, returning a dict linking
+  tags to their respective owners in the database (done)
 - Add config dictionary to make it easier to affect behavior (done)
 - Add classes to store dam and heifer records (done)
 - Add functionality to parse rows based on sheet_type (done)
