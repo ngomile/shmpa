@@ -140,13 +140,29 @@ class RowRecord:
             is_dam=row['is_dam']
         )
 
-    def removal_records(self, df: pd.DataFrame) -> pd.DataFrame:
+    def removal_record(self, df: pd.DataFrame) -> pd.DataFrame:
         '''
         With the given dataframe scan for rows that may contain transfer, death or
         sold data for the cow matching the tag of this record, if no record is
         found an empty data frame will be returned
         '''
         df_removal = pd.DataFrame({})
+        # Check for the three possible statuses that a cow can be in apart from
+        # alive, whichever matches contains the transfer information
+        df = df[
+            (
+                (df['tag'].str.contains(self.tag)) &
+                (df['status'] == 'sold')) |
+            (
+                (df['tag'].str.contains(self.tag)) &
+                (df['status'] == 'transferred')) |
+            (
+                (df['tag'].str.contains(self.tag)) &
+                (df['status'] == 'transferred'))
+        ]
+
+        if not df.empty:
+            df_removal = df
 
         return df_removal
 
