@@ -1,5 +1,6 @@
 #todo
 ####INCOMPLETE####
+- Make transfers output more detailed information
 - Add option to select start and end of rows to be processed in sheets
 - Add functionality to check if the list of records in the calving years is realistic
 - Add farmer record type to records
