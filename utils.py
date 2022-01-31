@@ -55,6 +55,8 @@ def stream_db_animals(document: str):
     :param document:
         The key of the document to scan for paths to web documents
     '''
+    assert os.path.isfile(document), f'Incorrect file path provided {document}'
+
     herd_selector = 'tr td:nth-child(1)'
     tag_selector = 'tr td:nth-child(2)'
     herd_name = ''
