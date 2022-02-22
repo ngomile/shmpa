@@ -53,6 +53,59 @@ HEIFER_COLS = {
     'status': 'U',
 }
 
+DAM_COLS_22 = {
+    'tag': 'B',
+    'comment': 'C',
+    'farmer_name': 'D',
+    'cow_no': 'E',
+    'established': 'F',
+    'mbg': 'G',
+    'village': 'I',
+    'zone': 'J',
+    'date_recv': 'K',
+    'repaid': 'L',
+    'calves_due': 'M',
+    'tag_2019': 'BL',
+    'date_2019': 'BM',
+    'tag_2020': 'BP',
+    'date_2020': 'BQ',
+    'tag_2021': 'BT',
+    'date_2021': 'BU',
+    'events': 'CB',
+    'breed': 'CF',
+    'semen': 'CG',
+    'born': 'CH',
+    'source': 'CI',
+    'date_removed': 'CV',
+    'cause': 'CW',
+    'destination': 'CX',
+    'future_decision': 'CY',
+    'last_calved': 'CZ',
+    'months_open': 'DB',
+    'status': 'DC',
+    'equipment_loan': 'DE',
+}
+
+NO_CODE_HEIFER_COLS = {
+    'tag': 'B',
+    'farmer_name': 'C',
+    'breed': 'D',
+    'semen': 'E',
+    'dam': 'J',
+    'events': 'K',
+    'mbg': 'L',
+    'cow_no': 'M',
+    'repaid': 'N',
+    'destination': 'O',
+    'transfer_mbg': 'P',
+    'date_removed': 'Q',
+    'born': 'R',
+    'weight': 'S',
+    'monthly_gain': 'T',
+    'last_weighed': 'U',
+    'status': 'V',
+}
+
 
 def get_config() -> dict[str, dict[str, Any]]:
     DAM_NAMES = [name for name in DAM_COLS.keys()]
