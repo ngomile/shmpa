@@ -28,9 +28,14 @@ class SheetHandler:
 
         path = ''
         if year:
+            # Year has been provided, make sure it is in list_of_years
             assert year in list_of_years, f'Provided year {year} not in {list_of_years}'
+            path = years_entry[year]['path']
+        else:
+            # In situations where year is not specified, fallback to using the most recent document
+            recent = list_of_years[-1]
+            path = years_entry[recent]['path']
 
-        path = documents[document].get('path', '')
         error_msg = f'Incorrect file path provided {path}'
         assert os.path.isfile(path), error_msg
 
@@ -45,6 +50,7 @@ class SheetHandler:
         self._alive_only = alive_only
         self._document = document
         self._sheet = sheet
+        self._year = year
 
     @ property
     def df_dams(self) -> pd.DataFrame:
