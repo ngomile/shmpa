@@ -1,4 +1,4 @@
-from typing import List, Any
+from typing import List, Any, Union
 import os
 
 import pandas as pd
@@ -51,9 +51,16 @@ class SheetHandler:
         self._DOCUMENT = document
         self._SHEET = sheet
 
-        self._DAM_NAMES: list[str] = config['dam']['names']
+        custom_names: Union[list[str], None] = None
+        custom_cols: Union[str, None] = None
+
+        if year and (dam := years_entry[year].get('dam', None)):
+            custom_names = dam['names']
+            custom_cols = dam['cols']
+
+        self._DAM_NAMES: list[str] = custom_names or config['dam']['names']
+        self._DAM_COLS: str = custom_cols or config['dam']['cols']
         self._DAM_CONVERTERS: dict[str, Any] = config['dam']['converters']
-        self._DAM_COLS: str = config['dam']['cols']
 
     @ property
     def df_dams(self) -> pd.DataFrame:
