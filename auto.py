@@ -11,7 +11,7 @@ from utils import filter_alive, stream_db_animals
 class SheetHandler:
     _CONFIG = get_config()
 
-    def __init__(self, document: str, /, sheet: str = None, alive_only: bool = True) -> None:
+    def __init__(self, document: str, /, sheet: str = None, alive_only: bool = True, year: int = None) -> None:
         config = self._CONFIG
         documents = config['documents']
         assert document in documents, f'Incorrect document key provided {document}'
