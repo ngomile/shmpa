@@ -16,10 +16,10 @@ class SheetHandler:
         documents = config['documents']
 
         assert document in documents, f'Incorrect document key provided {document}'
-        assert 'years' in documents[
-            document], f'Year entry not applied for {document} document'
+        document_entry = documents[document]
+        assert 'years' in document_entry, f'Years entry not applied for {document} document'
 
-        years_entry = documents[document]['years']
+        years_entry = document_entry['years']
         # Extract all list of years associated with the provided document
         list_of_years = sorted(list(years_entry.keys()))
 
@@ -41,9 +41,9 @@ class SheetHandler:
 
         if sheet:
             error_msg = f'Incorrect key for sheet {sheet}'
-            assert sheet in documents[document]['sheets'], error_msg
+            assert sheet in document_entry['sheets'], error_msg
         elif sheet is None:
-            entries = documents[document]['sheets'].keys()
+            entries = document_entry['sheets'].keys()
             sheet = list(entries)[0]
 
         self._path = path
