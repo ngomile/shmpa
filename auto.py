@@ -46,56 +46,55 @@ class SheetHandler:
             entries = document_entry['sheets'].keys()
             sheet = list(entries)[0]
 
-        self._path: str = path
-        self._alive_only = alive_only
-        self._document = document
-        self._sheet = sheet
-        self._year = year
+        self._PATH: str = path
+        self._ALIVE_ONLY = alive_only
+        self._DOCUMENT = document
+        self._SHEET = sheet
 
     @ property
     def df_dams(self) -> pd.DataFrame:
-        if not hasattr(self, '_df_dams'):
+        if not hasattr(self, '_DF_DAMS'):
             dam_names = self._CONFIG['dam']['names']
             dam_converters = self._CONFIG['dam']['converters']
             dam_cols = self._CONFIG['dam']['cols']
 
-            self._df_dams: pd.DataFrame = pd.read_excel(
-                self._path,
+            self._DF_DAMS: pd.DataFrame = pd.read_excel(
+                self._PATH,
                 names=dam_names,
                 usecols=dam_cols,
                 na_filter=False,
                 converters=dam_converters,
-                sheet_name=self._sheet,
+                sheet_name=self._SHEET,
                 skiprows=2
             )
 
-            if self._alive_only:
-                self._df_dams = filter_alive(self._df_dams)
-            self._df_dams['is_dam'] = True
+            if self._ALIVE_ONLY:
+                self._DF_DAMS = filter_alive(self._DF_DAMS)
+            self._DF_DAMS['is_dam'] = True
 
-        return self._df_dams
+        return self._DF_DAMS
 
     @property
     def df_heifers(self) -> pd.DataFrame:
-        if not hasattr(self, '_df_heifers'):
+        if not hasattr(self, '_DF_HEIFERS'):
             # Initialize heifer df to empty in case heifer sheet is unspecified
-            self._df_heifers: pd.DataFrame = pd.DataFrame({})
+            self._DF_HEIFERS: pd.DataFrame = pd.DataFrame({})
             heifer_names = self._CONFIG['heifer']['names']
             heifer_cols = self._CONFIG['heifer']['cols']
             heifer_converters = self._CONFIG['heifer']['converters']
 
-            heifer_sheet = self._CONFIG['documents'][self._document]['sheets'][self._sheet].get(
+            heifer_sheet = self._CONFIG['documents'][self._DOCUMENT]['sheets'][self._SHEET].get(
                 'heifer_sheet'
             )
 
             if heifer_sheet:
                 # In some cases some heifer sheets may have distinct column arrangement
-                sheets = self._CONFIG['documents'][self._document]['sheets']
-                heifer_cols = sheets.get(self._sheet).get(
+                sheets = self._CONFIG['documents'][self._DOCUMENT]['sheets']
+                heifer_cols = sheets.get(self._SHEET).get(
                     'heifer_cols') or heifer_cols
 
-                self._df_heifers = pd.read_excel(
-                    self._path,
+                self._DF_HEIFERS = pd.read_excel(
+                    self._PATH,
                     names=heifer_names,
                     usecols=heifer_cols,
                     converters=heifer_converters,
@@ -104,11 +103,11 @@ class SheetHandler:
                     skiprows=3
                 )
 
-                if self._alive_only:
-                    self._df_heifers = filter_alive(self._df_heifers)
+                if self._ALIVE_ONLY:
+                    self._DF_HEIFERS = filter_alive(self._DF_HEIFERS)
                 self.df_heifers['is_dam'] = False
 
-        return self._df_heifers
+        return self._DF_HEIFERS
 
     def yield_rows(self):
         '''
@@ -134,7 +133,7 @@ class SheetHandler:
         '''
         sheet_records = {record.tag: record for record in self.yield_records()}
 
-        for db_animal in stream_db_animals(self._document):
+        for db_animal in stream_db_animals(self._DOCUMENT):
             # _from stores the name of the herd taken from the database and we then
             # compare it's value to the farmer name of the cow tag in the sheets
             db_tag = db_animal.tag
