@@ -124,20 +124,20 @@ class RowRecord:
             The pandas series that contain entries matching this class constructor
         '''
         return cls(
-            tag=row['tag'].strip(),
-            farmer_name=row['farmer_name'].strip(),
-            mbg=row['mbg'].strip(),
-            code=row['code'],
-            cow_no=row['cow_no'],
-            repaid=row['repaid'],
-            events=row['events'],
-            breed=row['breed'],
-            semen=row['semen'],
-            born=row['born'],
-            date_removed=row['date_removed'],
-            destination=row['destination'],
-            status=row['status'],
-            is_dam=row['is_dam']
+            tag=row.get('tag').strip(),
+            farmer_name=row.get('farmer_name').strip(),
+            mbg=row.get('mbg').strip(),
+            code=row.get('code'),
+            cow_no=row.get('cow_no'),
+            repaid=row.get('repaid'),
+            events=row.get('events'),
+            breed=row.get('breed'),
+            semen=row.get('semen'),
+            born=row.get('born'),
+            date_removed=row.get('date_removed'),
+            destination=row.get('destination'),
+            status=row.get('status'),
+            is_dam=row.get('is_dam')
         )
 
     def removal_record(self, df: pd.DataFrame) -> pd.DataFrame:
