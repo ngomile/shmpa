@@ -207,3 +207,18 @@ class SheetHandler:
         '''
         for index, row in cls.yield_all_rows(alive):
             yield RowRecord.from_row(row)
+
+
+if __name__ == '__main__':
+    import time
+
+    start = time.perf_counter()
+
+    config = get_config()
+    for document in config['documents'].keys():
+        sh = SheetHandler(document)
+        print(sh.df_dams)
+        print(sh.df_heifers)
+
+    end = time.perf_counter()
+    print(f'That took {end - start}')
