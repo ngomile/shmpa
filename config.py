@@ -1,3 +1,4 @@
+from ntpath import join
 from typing import Any
 
 DAM_COLS = {
@@ -109,6 +110,7 @@ NO_CODE_HEIFER_COLS = {
 
 def get_config() -> dict[str, dict[str, Any]]:
     DAM_NAMES = [name for name in DAM_COLS.keys()]
+    DAM_NAMES_22 = [name for name in DAM_COLS_22.keys()]
     HEIFER_NAMES = [name for name in HEIFER_COLS.keys()]
 
     return {
@@ -139,21 +141,30 @@ def get_config() -> dict[str, dict[str, Any]]:
         },
         'documents': {
             'tm': {
-                'path': 'C:/Users/SHMPA Data/Documents/shmpa/fmrs TM Jul21.xlsx',
+                'year': {
+                    '2021': {
+                        'path': 'C:/Users/SHMPA Data/Documents/shmpa/fmrs TM Jul21.xlsx',
+                        'has_code': True,
+                    },
+                    '2022': {
+                        'path': 'C:/Users/SHMPA Data/Documents/shmpa/fmrs TM Jan22.xlsx',
+                        'dam': {
+                            'names': DAM_NAMES_22,
+                            'cols': ', '.join([DAM_COLS_22[col] for col in DAM_NAMES_22]),
+                        },
+                    },
+                },
                 'sheets': {
-                    'bt': {},
                     'cm': {
                         'heifer_sheet': 'cmh',
                     },
                     'mpA': {
                         'heifer_sheet': 'mpAh',
                         'db_path': 'C:/Users/SHMPA Data/Documents/mpa.html',
-                        'has_code': True,
                     },
                     'mpT': {
                         'heifer_sheet': 'mpTh',
                         'db_path': 'C:/Users/SHMPA Data/Documents/mpt.html',
-                        'has_code': True,
                     },
                 },
             },
