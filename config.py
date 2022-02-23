@@ -141,7 +141,7 @@ def get_config() -> dict[str, dict[str, Any]]:
         },
         'documents': {
             'tm': {
-                'year': {
+                'years': {
                     '2021': {
                         'path': 'C:/Users/SHMPA Data/Documents/shmpa/fmrs TM Jul21.xlsx',
                         'has_code': True,
