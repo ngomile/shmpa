@@ -51,19 +51,19 @@ class SheetHandler:
         self._DOCUMENT = document
         self._SHEET = sheet
 
+        self._DAM_NAMES = config['dam']['names']
+        self._DAM_CONVERTERS = config['dam']['converters']
+        self._DAM_COLS = config['dam']['cols']
+
     @ property
     def df_dams(self) -> pd.DataFrame:
         if not hasattr(self, '_DF_DAMS'):
-            dam_names = self._CONFIG['dam']['names']
-            dam_converters = self._CONFIG['dam']['converters']
-            dam_cols = self._CONFIG['dam']['cols']
-
             self._DF_DAMS: pd.DataFrame = pd.read_excel(
                 self._PATH,
-                names=dam_names,
-                usecols=dam_cols,
+                names=self._DAM_NAMES,
+                usecols=self._DAM_CONVERTERS,
                 na_filter=False,
-                converters=dam_converters,
+                converters=self._DAM_COLS,
                 sheet_name=self._SHEET,
                 skiprows=2
             )
