@@ -62,6 +62,11 @@ class SheetHandler:
         self._DAM_COLS: str = custom_cols or config['dam']['cols']
         self._DAM_CONVERTERS: dict[str, Any] = config['dam']['converters']
 
+        self._HEIFER_NAMES: list[str] = config['heifer']['names']
+        self._HEIFER_COLS: str = config['heifer']['cols']
+        self._HEIFER_CONVERTERS: dict[str,
+                                      Any] = config['heifer']['converters']
+
     @ property
     def df_dams(self) -> pd.DataFrame:
         if not hasattr(self, '_DF_DAMS'):
@@ -86,9 +91,6 @@ class SheetHandler:
         if not hasattr(self, '_DF_HEIFERS'):
             # Initialize heifer df to empty in case heifer sheet is unspecified
             self._DF_HEIFERS: pd.DataFrame = pd.DataFrame({})
-            heifer_names = self._CONFIG['heifer']['names']
-            heifer_cols = self._CONFIG['heifer']['cols']
-            heifer_converters = self._CONFIG['heifer']['converters']
 
             heifer_sheet = self._CONFIG['documents'][self._DOCUMENT]['sheets'][self._SHEET].get(
                 'heifer_sheet'
@@ -102,9 +104,9 @@ class SheetHandler:
 
                 self._DF_HEIFERS = pd.read_excel(
                     self._PATH,
-                    names=heifer_names,
-                    usecols=heifer_cols,
-                    converters=heifer_converters,
+                    names=self._HEIFER_NAMES,
+                    usecols=self._HEIFER_COLS,
+                    converters=self._HEIFER_CONVERTERS,
                     sheet_name=heifer_sheet,
                     na_filter=False,
                     skiprows=3
