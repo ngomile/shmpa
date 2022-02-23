@@ -46,7 +46,7 @@ class SheetHandler:
             entries = document_entry['sheets'].keys()
             sheet = list(entries)[0]
 
-        self._path = path
+        self._path: str = path
         self._alive_only = alive_only
         self._document = document
         self._sheet = sheet
