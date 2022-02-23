@@ -168,6 +168,7 @@ def get_config() -> dict[str, dict[str, Any]]:
                     },
                 },
             },
+            'cm': {}
         },
     }
 

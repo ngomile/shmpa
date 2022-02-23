@@ -15,6 +15,8 @@ class SheetHandler:
         config = self._CONFIG
         documents = config['documents']
         assert document in documents, f'Incorrect document key provided {document}'
+        assert 'year' in config['documents'][
+            document], f'Year entry not applied for {document} document'
 
         path = self._CONFIG['documents'][document].get('path', '')
         error_msg = f'Incorrect file path provided {path}'
