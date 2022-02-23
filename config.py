@@ -107,6 +107,11 @@ NO_CODE_HEIFER_COLS = {
     'status': 'V',
 }
 
+NO_CODE_HEIFER_NAMES = [name for name in NO_CODE_HEIFER_COLS.keys()]
+
+NO_CODE_HEIFER_COLS = [NO_CODE_HEIFER_COLS[col]
+                       for col in NO_CODE_HEIFER_NAMES]
+
 
 def get_config() -> dict[str, dict[str, Any]]:
     DAM_NAMES = [name for name in DAM_COLS.keys()]
@@ -151,6 +156,10 @@ def get_config() -> dict[str, dict[str, Any]]:
                         'dam': {
                             'names': DAM_NAMES_22,
                             'cols': ', '.join([DAM_COLS_22[col] for col in DAM_NAMES_22]),
+                        },
+                        'heifer': {
+                            'names': NO_CODE_HEIFER_NAMES,
+                            'cols': NO_CODE_HEIFER_COLS,
                         },
                     },
                 },
