@@ -14,19 +14,31 @@ class SheetHandler:
     def __init__(self, document: str, /, sheet: str = None, alive_only: bool = True, year: int = None) -> None:
         config = self._CONFIG
         documents = config['documents']
+
         assert document in documents, f'Incorrect document key provided {document}'
-        assert 'year' in config['documents'][
+        assert 'years' in documents[
             document], f'Year entry not applied for {document} document'
 
-        path = self._CONFIG['documents'][document].get('path', '')
+        years_entry = documents[document]['years']
+        # Extract all list of years associated with the provided document
+        list_of_years = sorted(list(years_entry.keys()))
+
+        path_check = ['path' in years_entry[year] for year in list_of_years]
+        assert all(path_check), 'Path to file not provided'
+
+        path = ''
+        if year:
+            assert year in list_of_years, f'Provided year {year} not in {list_of_years}'
+
+        path = documents[document].get('path', '')
         error_msg = f'Incorrect file path provided {path}'
         assert os.path.isfile(path), error_msg
 
         if sheet:
             error_msg = f'Incorrect key for sheet {sheet}'
-            assert sheet in config['documents'][document]['sheets'], error_msg
+            assert sheet in documents[document]['sheets'], error_msg
         elif sheet is None:
-            entries = config['documents'][document]['sheets'].keys()
+            entries = documents[document]['sheets'].keys()
             sheet = list(entries)[0]
 
         self._path = path
