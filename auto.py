@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Any
 import os
 
 import pandas as pd
@@ -51,9 +51,9 @@ class SheetHandler:
         self._DOCUMENT = document
         self._SHEET = sheet
 
-        self._DAM_NAMES = config['dam']['names']
-        self._DAM_CONVERTERS = config['dam']['converters']
-        self._DAM_COLS = config['dam']['cols']
+        self._DAM_NAMES: list[str] = config['dam']['names']
+        self._DAM_CONVERTERS: dict[str, Any] = config['dam']['converters']
+        self._DAM_COLS: str = config['dam']['cols']
 
     @ property
     def df_dams(self) -> pd.DataFrame:
