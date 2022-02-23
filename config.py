@@ -142,11 +142,11 @@ def get_config() -> dict[str, dict[str, Any]]:
         'documents': {
             'tm': {
                 'years': {
-                    '2021': {
+                    2021: {
                         'path': 'C:/Users/SHMPA Data/Documents/shmpa/fmrs TM Jul21.xlsx',
                         'has_code': True,
                     },
-                    '2022': {
+                    2022: {
                         'path': 'C:/Users/SHMPA Data/Documents/shmpa/fmrs TM Jan22.xlsx',
                         'dam': {
                             'names': DAM_NAMES_22,
@@ -168,7 +168,6 @@ def get_config() -> dict[str, dict[str, Any]]:
                     },
                 },
             },
-            'cm': {}
         },
     }
 
