@@ -61,9 +61,9 @@ class SheetHandler:
             self._DF_DAMS: pd.DataFrame = pd.read_excel(
                 self._PATH,
                 names=self._DAM_NAMES,
-                usecols=self._DAM_CONVERTERS,
+                usecols=self._DAM_COLS,
                 na_filter=False,
-                converters=self._DAM_COLS,
+                converters=self._DAM_CONVERTERS,
                 sheet_name=self._SHEET,
                 skiprows=2
             )
