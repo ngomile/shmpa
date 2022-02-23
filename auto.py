@@ -21,20 +21,20 @@ class SheetHandler:
 
         years_entry = document_entry['years']
         # Extract all list of years associated with the provided document
-        list_of_years = sorted(list(years_entry.keys()))
+        list_of_years: list[int] = sorted(list(years_entry.keys()))
 
         path_check = ['path' in years_entry[year] for year in list_of_years]
         assert all(path_check), 'Path to file not provided'
 
-        path = ''
+        path: str = ''
         if year:
             # Year has been provided, make sure it is in list_of_years
             assert year in list_of_years, f'Provided year {year} not in {list_of_years}'
             path = years_entry[year]['path']
         else:
             # In situations where year is not specified, fallback to using the most recent document
-            recent = list_of_years[-1]
-            path = years_entry[recent]['path']
+            year = list_of_years[-1]
+            path = years_entry[year]['path']
 
         error_msg = f'Incorrect file path provided {path}'
         assert os.path.isfile(path), error_msg
