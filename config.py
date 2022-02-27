@@ -160,9 +160,9 @@ def get_config() -> dict[str, dict[str, Any]]:
                     },
                 },
                 'sheets': {
-                    'cm': {
-                        'heifer_sheet': 'cmh',
-                    },
+                    # 'cm': {
+                    #     'heifer_sheet': 'cmh',
+                    # },
                     'mpA': {
                         'heifer_sheet': 'mpAh',
                         'db_path': 'C:/Users/SHMPA Data/Documents/mpa.html',
