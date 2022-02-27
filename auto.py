@@ -50,6 +50,7 @@ class SheetHandler:
         self._ALIVE_ONLY = alive_only
         self._DOCUMENT = document
         self._SHEET = sheet
+        self._YEAR = year
 
         custom_names: Union[list[str], None] = None
         custom_cols: Union[str, None] = None
@@ -91,21 +92,25 @@ class SheetHandler:
         if not hasattr(self, '_DF_HEIFERS'):
             # Initialize heifer df to empty in case heifer sheet is unspecified
             self._DF_HEIFERS: pd.DataFrame = pd.DataFrame({})
-
-            heifer_sheet = self._CONFIG['documents'][self._DOCUMENT]['sheets'][self._SHEET].get(
-                'heifer_sheet'
-            )
+            document = self._CONFIG['documents'][self._DOCUMENT]
+            sheets: dict[str, dict[str, str]] = document['sheets']
+            heifer_sheet = sheets[self._SHEET].get('heifer_sheet')
 
             if heifer_sheet:
                 # In some cases some heifer sheets may have distinct column arrangement
-                sheets = self._CONFIG['documents'][self._DOCUMENT]['sheets']
-                heifer_cols = sheets.get(self._SHEET).get(
-                    'heifer_cols') or heifer_cols
+                custom_names = None
+                custom_cols = None
+                year_entry = document['years'][self._YEAR]
+                custom_heifer_attrs = year_entry.get('heifer')
+
+                if custom_heifer_attrs:
+                    custom_names = custom_heifer_attrs['names']
+                    custom_cols = custom_heifer_attrs['cols']
 
                 self._DF_HEIFERS = pd.read_excel(
                     self._PATH,
-                    names=self._HEIFER_NAMES,
-                    usecols=self._HEIFER_COLS,
+                    names=custom_names or self._HEIFER_NAMES,
+                    usecols=custom_cols or self._HEIFER_COLS,
                     converters=self._HEIFER_CONVERTERS,
                     sheet_name=heifer_sheet,
                     na_filter=False,
@@ -114,6 +119,7 @@ class SheetHandler:
 
                 if self._ALIVE_ONLY:
                     self._DF_HEIFERS = filter_alive(self._DF_HEIFERS)
+
                 self.df_heifers['is_dam'] = False
 
         return self._DF_HEIFERS
@@ -205,7 +211,7 @@ class SheetHandler:
         :param alive
             Whether to only return the rows of animals that are alive
         '''
-        for index, row in cls.yield_all_rows(alive):
+        for _, row in cls.yield_all_rows(alive):
             yield RowRecord.from_row(row)
 
 
@@ -216,9 +222,11 @@ if __name__ == '__main__':
 
     config = get_config()
     for document in config['documents'].keys():
-        sh = SheetHandler(document)
-        print(sh.df_dams)
-        print(sh.df_heifers)
+        sheets = config['documents'][document]['sheets']
+        for sheet in sheets.keys():
+            sh = SheetHandler(document, sheet=sheet)
+            print(sh.df_dams)
+            print(sh.df_heifers)
 
     end = time.perf_counter()
     print(f'That took {end - start}')
