@@ -223,10 +223,12 @@ if __name__ == '__main__':
     config = get_config()
     for document in config['documents'].keys():
         sheets = config['documents'][document]['sheets']
-        for sheet in sheets.keys():
-            sh = SheetHandler(document, sheet=sheet)
-            print(sh.df_dams)
-            print(sh.df_heifers)
+        years = config['documents'][document]['years']
+        for year in sorted(list(years.keys())):
+            for sheet in sheets.keys():
+                sh = SheetHandler(document, sheet=sheet, year=year)
+                print(sh.df_dams)
+                print(sh.df_heifers)
 
     end = time.perf_counter()
     print(f'That took {end - start}')
