@@ -192,6 +192,38 @@ class SheetHandler:
 
         return dataframe.reset_index(drop=True)
 
+    def compare_with_db(self):
+        '''
+        Finds records that are only appearing in the database and also only
+        appearing in the sheets and yields a dictionary containing the herd
+        name and the location of where it is being found
+        '''
+        db_animal = stream_db_animals(self._DOCUMENT, self._SHEET)
+        sheet_records = self.yield_records()
+
+        db_entries = {entry.tag: entry for entry in db_animal}
+        sheet_entries = {entry.tag: entry for entry in sheet_records}
+
+        for db_entry in db_entries.keys():
+            if db_entry not in sheet_entries:
+                entry = db_entries[db_entry]
+
+                yield {
+                    'tag': entry.tag,
+                    'herd': entry.herd,
+                    'location': 'DB_ONLY'
+                }
+
+        for sheet_entry in sheet_entries.keys():
+            if sheet_entry not in db_entries:
+                entry = sheet_entries[sheet_entry]
+
+                yield {
+                    'tag': entry.tag,
+                    'herd': entry.farmer_name,
+                    'location': 'SHEET_ONLY'
+                }
+
     @classmethod
     def find_all_transfers(cls, document: str, sheets: List[str], alive: bool = False):
         '''
