@@ -167,6 +167,31 @@ class SheetHandler:
                     'reason': ''
                 }
 
+    def search(self, tag: str = '', farmer_name: str = '') -> pd.DataFrame:
+        '''
+        Filters out the dataframe by checking the values provided against it,
+        when a match is found the dataframe is reassigned the result of the
+        comparison check. And the final filtered dataframe is returned
+
+        :param tag
+            The tag to search for through the tag column
+        :param farmer_name
+            The farmer name to search for through the farmer_name column
+        '''
+
+        records_list: list[dict] = [record.to_dict()
+                                    for record in self.yield_records()]
+        dataframe = pd.DataFrame(records_list)
+
+        if tag:
+            dataframe = dataframe[dataframe['tag'].str.contains(tag)]
+
+        if farmer_name:
+            dataframe = dataframe[dataframe['farmer_name'].str.contains(
+                farmer_name)]
+
+        return dataframe
+
     @classmethod
     def find_all_transfers(cls, document: str, sheets: List[str], alive: bool = False):
         '''
