@@ -43,8 +43,12 @@ def soupify_web(document: str, sheet: str = None):
         If specified, use only the file associated with this sheet
     '''
     config = get_config()
-    sheets = config['documents'][document]['sheets']
-    for sheet in [sheet] or sheets.keys():
+    sheets = config['documents'][document]['sheets'].keys()
+
+    if sheet:
+        sheets = [sheet]
+
+    for sheet in sheets:
         if db_path := sheets[sheet].get('db_path'):
             assert os.path.isfile(
                 db_path
