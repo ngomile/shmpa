@@ -190,7 +190,7 @@ class SheetHandler:
             dataframe = dataframe[dataframe['farmer_name'].str.contains(
                 farmer_name)]
 
-        return dataframe
+        return dataframe.reset_index(drop=True)
 
     @classmethod
     def find_all_transfers(cls, document: str, sheets: List[str], alive: bool = False):
