@@ -32,17 +32,19 @@ def soupify_path(path: str) -> BeautifulSoup:
         return BeautifulSoup(f, 'html.parser')
 
 
-def soupify_web(document: str):
+def soupify_web(document: str, sheet: str = None):
     '''
     Given document as key to one of the sheets in config, find all sheets that have
     a website entry for the document and yield the soup instance
 
     :param document:
         The key of the document to be used
+    :param sheet:
+        If specified, use only the file associated with this sheet
     '''
     config = get_config()
     sheets = config['documents'][document]['sheets']
-    for sheet in sheets.keys():
+    for sheet in [sheet] or sheets.keys():
         if db_path := sheets[sheet].get('db_path'):
             assert os.path.isfile(
                 db_path
@@ -50,7 +52,7 @@ def soupify_web(document: str):
             yield soupify_path(db_path)
 
 
-def stream_db_animals(document: str):
+def stream_db_animals(document: str, sheet: str = None):
     '''
     Returns an iterable of all the animals in the database in separate lists as one
     stream of values to be consumed
@@ -62,7 +64,7 @@ def stream_db_animals(document: str):
     tag_selector = 'tr td:nth-child(2)'
     herd_name = ''
 
-    for soup in soupify_web(document):
+    for soup in soupify_web(document, sheet):
         for herd, tag in zip(soup.select(herd_selector), soup.select(tag_selector)):
             herd, tag = herd.get_text(strip=True), tag.get_text(strip=True)
             if herd:
