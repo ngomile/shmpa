@@ -192,6 +192,26 @@ class SheetHandler:
 
         return dataframe.reset_index(drop=True)
 
+    def search_name(self, farmer_name: str) -> pd.DataFrame:
+        '''
+        Helper method to search only for farmers that happen to have a
+        matching name
+
+        :param farmer_name
+            The name of the farmer to search for
+        '''
+        return self.search(farmer_name=farmer_name)
+
+    def search_tag(self, tag: str) -> pd.DataFrame:
+        '''
+        Helper method to help search dataframe where the farmer_name column
+        happens to match with teh searched tag
+
+        :param tag
+            The tag of the cow to search for
+        '''
+        return self.search(tag=tag)
+
     def compare_with_db(self):
         '''
         Finds records that are only appearing in the database and also only
