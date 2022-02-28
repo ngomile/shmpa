@@ -120,6 +120,7 @@ def get_config() -> dict[str, dict[str, Any]]:
             'cols': ', '.join([DAM_COLS[col] for col in DAM_NAMES]),
             'converters': {
                 'tag': str,
+                'farmer_name': str,
                 'code': str,
                 'cow_no': str,
                 'established': int,
@@ -134,6 +135,7 @@ def get_config() -> dict[str, dict[str, Any]]:
             'cols': ', '.join([HEIFER_COLS[col] for col in HEIFER_NAMES]),
             'converters': {
                 'tag': str,
+                'farmer_name': str,
                 'dam': str,
                 'repaid': bool,
                 'born': str,
