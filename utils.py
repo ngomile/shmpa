@@ -43,13 +43,13 @@ def soupify_web(document: str, sheet: str = None):
         If specified, use only the file associated with this sheet
     '''
     config = get_config()
-    sheets = config['documents'][document]['sheets'].keys()
+    sheets = config['documents'][document]['sheets']
 
-    if sheet:
-        sheets = [sheet]
+    for sheet_key in sheets.keys():
+        if sheet and sheet_key != sheet:
+            continue
 
-    for sheet in sheets:
-        if db_path := sheets[sheet].get('db_path'):
+        if db_path := sheets[sheet_key].get('db_path'):
             assert os.path.isfile(
                 db_path
             ), 'Incorrect path provided for database file'
