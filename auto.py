@@ -181,8 +181,8 @@ class SheetHandler:
             The farmer name to search for through the farmer_name column
         '''
 
-        records_list: list[dict] = [record.to_dict()
-                                    for record in self.yield_records()]
+        records = self.yield_records()
+        records_list: list[dict] = [record.to_dict() for record in records]
         dataframe = pd.DataFrame(records_list)
 
         if tag:
