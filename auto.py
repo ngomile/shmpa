@@ -214,7 +214,7 @@ class SheetHandler:
         '''
         return self.search(tag=tag)
 
-    def compare_with_db(self):
+    def compare_to_db(self):
         '''
         Finds records that are only appearing in the database and also only
         appearing in the sheets and yields a dictionary containing the herd
@@ -278,24 +278,6 @@ class SheetHandler:
                     'herd': entry.farmer_name,
                     'location': 'SHEET_ONLY'
                 }
-
-    @classmethod
-    def find_all_transfers(cls, document: str, sheets: List[str], alive: bool = False):
-        '''
-        This method goes through the provided sheets and creates SheetHandler instances
-        for each sheet and finds the cows that have likely been transferred to other
-        farmers
-
-        :param document
-            The document containing the sheets we are interested in
-        :param sheets
-            The sheets to scan through and compare animal list from the database to
-            them
-        '''
-        for sheet in sheets:
-            sheet_handler = cls(document, sheet, alive)
-            for transfer in sheet_handler.find_transferred():
-                yield transfer
 
     @classmethod
     def yield_all_rows(cls, alive: bool = True):
