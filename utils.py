@@ -53,6 +53,7 @@ def soupify_web(document: str, sheet: str = None):
             assert os.path.isfile(
                 db_path
             ), 'Incorrect path provided for database file'
+
             yield soupify_path(db_path)
 
 
