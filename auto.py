@@ -141,14 +141,16 @@ class SheetHandler:
         for _, row in self.yield_rows():
             yield RowRecord.from_row(row)
 
-    def find_transferred(self):
+    @classmethod
+    def find_transferred(cls, document: str):
         '''
         Iterate through web animal list and find animals whose herds do not match with
         the excel entries for that animal
         '''
-        sheet_records = {record.tag: record for record in self.yield_records()}
+        records = cls.yield_all_records()
+        sheet_records = {record.tag: record for record in records}
 
-        for db_animal in stream_db_animals(self._DOCUMENT):
+        for db_animal in stream_db_animals(document):
             # _from stores the name of the herd taken from the database and we then
             # compare it's value to the farmer name of the cow tag in the sheets
             db_tag = db_animal.tag
