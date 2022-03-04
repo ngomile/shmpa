@@ -104,7 +104,7 @@ def filter_alive(df: pd.DataFrame) -> pd.DataFrame:
     )].reset_index(drop=True)
 
 
-def output_to_excel(title: str, df: pd.Series):
+def output_to_excel(title: str, df: pd.DataFrame):
     '''
     Outpus the given dataframe to an excel file in the output directory
 
@@ -115,5 +115,6 @@ def output_to_excel(title: str, df: pd.Series):
         The pandas series that has the data the file will contain
     '''
     now = datetime.now()
-    dt_string = now.strftime('%d-%m-%Y %H:%M:%S')
-    df.to_excel(f'{OUTPUT_DIR}/{title} {dt_string}.xlsx')
+    dt_string = now.strftime('%d_%m_%Y')
+    df = df.reset_index(drop=True)
+    df.to_excel(f'{OUTPUT_DIR}/{title}_{dt_string}.xlsx')
