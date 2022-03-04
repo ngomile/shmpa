@@ -1,5 +1,5 @@
 import os
-from datetime import date
+from datetime import date, datetime
 import re
 from typing import List
 
@@ -102,3 +102,18 @@ def filter_alive(df: pd.DataFrame) -> pd.DataFrame:
         regex=True,
         flags=re.I
     )].reset_index(drop=True)
+
+
+def output_to_excel(title: str, df: pd.Series):
+    '''
+    Outpus the given dataframe to an excel file in the output directory
+
+    :param title
+        The partial title of the excel document, has the current date and
+        time appended to it
+    :param df
+        The pandas series that has the data the file will contain
+    '''
+    now = datetime.now()
+    dt_string = now.strftime('%d-%m-%Y %H:%M:%S')
+    df.to_excel(f'{title} {dt_string}.xlsx')
