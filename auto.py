@@ -194,7 +194,7 @@ class SheetHandler:
 
         return dataframe.reset_index(drop=True)
 
-    def search_name(self, farmer_name: str) -> pd.DataFrame:
+    def search_farmer(self, farmer_name: str) -> pd.DataFrame:
         '''
         Helper method to search only for farmers that happen to have a
         matching name
