@@ -128,6 +128,7 @@ def get_config() -> dict[str, dict[str, Any]]:
                 'repaid': bool,
                 'born': str,
                 'date_removed': str,
+                'breed': str,
             }
         },
         'heifer': {
@@ -140,6 +141,7 @@ def get_config() -> dict[str, dict[str, Any]]:
                 'repaid': bool,
                 'born': str,
                 'date_removed': str,
+                'breed': str,
             }
         },
         'documents': {
