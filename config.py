@@ -85,6 +85,7 @@ DAM_COLS_22 = {
     'months_open': 'DB',
     'status': 'DC',
     'equipment_loan': 'DE',
+    'code': 'DS',
 }
 
 NO_CODE_HEIFER_COLS = {
