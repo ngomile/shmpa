@@ -5,7 +5,7 @@ import pandas as pd
 
 from config import get_config
 from records import RowRecord
-from utils import filter_alive, stream_db_animals
+from utils import filter_alive, stream_db_animals, output_to_excel, DATE_TIME
 
 
 class SheetHandler:
@@ -307,6 +307,17 @@ class SheetHandler:
         '''
         for _, row in cls.yield_all_rows(alive):
             yield RowRecord.from_row(row)
+
+    @classmethod
+    def output_comparisons(cls, document: str):
+        '''
+        Outputs the differences between the sheets and the database with the
+        given document to a file containing the list of comparisons that are
+        the differences between the two.
+        '''
+        differences = cls.compare_all_db(document)
+        differences_df = pd.DataFrame(differences)
+        output_to_excel(f'DIFFERENCES', differences_df)
 
 
 if __name__ == '__main__':
