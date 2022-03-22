@@ -117,4 +117,4 @@ def output_to_excel(title: str, df: pd.DataFrame):
     now = datetime.now()
     dt_string = now.strftime('%d_%m_%Y')
     df = df.reset_index(drop=True)
-    df.to_excel(f'{OUTPUT_DIR}/{title}_{dt_string}.xlsx')
+    df.to_excel(f'{OUTPUT_DIR}/{title}_{dt_string}.xlsx', index=False)
